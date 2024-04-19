@@ -1,0 +1,99 @@
+name: Workflow on PR
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build-test:
+    name: Build & run unit tests
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Build Go Binary
+        uses: ./.github/actions/setup-build-go-binary
+        with:
+          go-version: "1.22.0"
+      - name: Run Tests
+        uses: robherley/go-test-action@v0.1.0
+        with:
+          omitUntestedPackages: true
+          omitPie: true
+
+  deploy-review:
+    name: Deploy review app
+    environment:
+      name: development
+      url: ${{ steps.generate_environment.outputs.url }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Generate environment
+        id: generate_environment
+        uses: ./.github/actions/setup-environment
+        with:
+          base_url: "newtri-science.michel.lu"
+      - name: Save tag name
+        run: echo ${{ steps.generate_environment.outputs.tag }} > open-review-app.txt
+      - name: Upload tag name artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: open-review-app
+          path: open-review-app.txt
+      - name: Build and push docker image
+        uses: ./.github/actions/build-push-docker-image
+        with:
+          tag: ${{ steps.generate_environment.outputs.tag }}
+          docker_user: ${{ secrets.DOCKERHUB_USERNAME }}
+          docker_token: ${{ secrets.DOCKERHUB_TOKEN }}
+      - name: Deploy review app
+        uses: ./.github/actions/deploy-app
+        with:
+          tag: ${{ steps.generate_environment.outputs.tag }}
+          subDomain: ${{ steps.generate_environment.outputs.tag }}
+          name: ${{ steps.generate_environment.outputs.tag }}
+          version: ${{ steps.generate_environment.outputs.commit_hash }}
+          token: ${{ secrets.GH_PAT }}
+          tlsName: ccl-review-${{ steps.generate_environment.outputs.tag }}-tls
+          persistence: false
+      - name: Wait for review app deployment
+        if: always()
+        run: |
+          .ci/wait_for_version_change.sh ${{ steps.generate_environment.outputs.commit_hash }} ${{ steps.generate_environment.outputs.url }}
+          echo "tag=${{ steps.generate_environment.outputs.tag }}" >> $GITHUB_OUTPUT
+
+  cypress-run:
+    name: Run integration tests against review app
+    needs: [deploy-review]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Generate environment
+        id: generate_environment
+        uses: ./.github/actions/setup-environment
+        with:
+          base_url: "newtri-science.michel.lu"
+      - name: Install Cypress dependencies
+        run: npm install cypress
+      - name: Cypress run
+        uses: cypress-io/github-action@v6.6.1
+        with:
+          cache-key: cypress-${{ runner.os }}-${{ hashFiles('package-lock.json') }}
+        env:
+          CYPRESS_BASE_URL: ${{ steps.generate_environment.outputs.url }}
+          CYPRESS_APP_VERSION: ${{ steps.generate_environment.outputs.commit_hash }}
+      - uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: cypress-screenshots
+          path: cypress/screenshots
+          if-no-files-found: ignore
+      - uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: cypress-videos
+          path: cypress/videos
+          if-no-files-found: ignore

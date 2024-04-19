@@ -1,0 +1,37 @@
+# Dockerfile
+# docker-compose.yml
+# docker-compose.*.yml
+# Makefile
+# README.md
+# CONTRIBUTING.md
+# .vscode
+# .git
+# .gitignore
+node_modules
+cypress
+deployments
+.env*
+.git
+.github
+
+# tmp
+# .air.toml
+# .env*
+# .package*.json
+# cycling-coach-lab
+# assets
+
+# Ignore everything
+# *
+
+
+# Allow files and directories
+# !src/*
+# !/migrations/*
+# !/package.json
+# !/package-lock.json
+# !tailwind.config.js
+
+# Ignore specific files
+# **/.air.toml
+
