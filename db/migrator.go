@@ -12,7 +12,7 @@ import (
 	_ "github.com/lib/pq"
 	"go.uber.org/zap"
 
-	"github.com/michelm117/cycling-coach-lab/utils"
+	"github.com/JoshLi15/synonym-tool/utils"
 )
 
 func NewMigrator(

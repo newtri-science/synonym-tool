@@ -10,9 +10,9 @@ import (
 
 	_ "github.com/jackc/pgx/stdlib"
 
-	"github.com/michelm117/cycling-coach-lab/model"
-	"github.com/michelm117/cycling-coach-lab/services"
-	"github.com/michelm117/cycling-coach-lab/test_utils"
+	"github.com/JoshLi15/synonym-tool/model"
+	"github.com/JoshLi15/synonym-tool/services"
+	"github.com/JoshLi15/synonym-tool/test_utils"
 )
 
 var DB *sql.DB

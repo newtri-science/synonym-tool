@@ -6,7 +6,7 @@ import (
 
 	"go.uber.org/zap"
 
-	"github.com/michelm117/cycling-coach-lab/model"
+	"github.com/JoshLi15/synonym-tool/model"
 )
 
 type UserService struct {

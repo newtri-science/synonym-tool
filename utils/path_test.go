@@ -6,7 +6,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/michelm117/cycling-coach-lab/utils"
+	"github.com/JoshLi15/synonym-tool/utils"
 )
 
 func TestGetProjectRootForDevVsProd(t *testing.T) {

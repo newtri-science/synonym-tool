@@ -4,7 +4,7 @@ import (
 	"os"
 	"testing"
 
-	"github.com/michelm117/cycling-coach-lab/utils"
+	"github.com/JoshLi15/synonym-tool/utils"
 )
 
 var ENVS = []string{"ENV", "DB_HOST", "DB_PORT", "DB_USER", "DB_PASSWORD", "DB_NAME", "VERSION"}

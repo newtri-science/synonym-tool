@@ -5,7 +5,7 @@ import (
 	"os"
 	"testing"
 
-	"github.com/michelm117/cycling-coach-lab/db"
+	"github.com/JoshLi15/synonym-tool/db"
 )
 
 func prepareEnv(host, port, user, password, dbname string) {

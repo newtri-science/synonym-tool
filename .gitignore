@@ -6,7 +6,6 @@ node_modules
 assets/styles.css
 .env
 main
-deployments/cycling-coach-lab/charts/*
 cypress/screenshots
 cypress/videos
 yarn.lock

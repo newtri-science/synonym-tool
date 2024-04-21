@@ -1,4 +1,4 @@
-module github.com/michelm117/cycling-coach-lab
+module github.com/JoshLi15/synonym-tool
 
 go 1.22.0
 

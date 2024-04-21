@@ -11,10 +11,10 @@ import (
 	"github.com/labstack/echo/v4/middleware"
 	"go.uber.org/zap"
 
-	"github.com/michelm117/cycling-coach-lab/db"
-	"github.com/michelm117/cycling-coach-lab/handler"
-	"github.com/michelm117/cycling-coach-lab/services"
-	"github.com/michelm117/cycling-coach-lab/utils"
+	"github.com/JoshLi15/synonym-tool/db"
+	"github.com/JoshLi15/synonym-tool/handler"
+	"github.com/JoshLi15/synonym-tool/services"
+	"github.com/JoshLi15/synonym-tool/utils"
 )
 
 func main() {

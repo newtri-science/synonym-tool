@@ -59,7 +59,7 @@ test: generate
 .PHONY: docker-build
 docker-build:
 	@echo "Building docker image..."
-	docker build --no-cache . -t unrealwombat/cycling-coach-lab:latest
+	docker build --no-cache . -t JoshLi15/synonym-tool:latest
 
 
 ## docker-run: run project in a container
