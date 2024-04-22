@@ -1,4 +1,4 @@
-module github.com/JoshLi15/synonym-tool
+module github.com/newtri-science/synonym-tool
 
 go 1.22.0
 

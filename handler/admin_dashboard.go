@@ -10,10 +10,10 @@ import (
 	"go.uber.org/zap"
 	"golang.org/x/crypto/bcrypt"
 
-	"github.com/JoshLi15/synonym-tool/model"
-	"github.com/JoshLi15/synonym-tool/services"
-	"github.com/JoshLi15/synonym-tool/views/admin_dashboard"
-	"github.com/JoshLi15/synonym-tool/views/utils"
+	"github.com/newtri-science/synonym-tool/model"
+	"github.com/newtri-science/synonym-tool/services"
+	"github.com/newtri-science/synonym-tool/views/admin_dashboard"
+	"github.com/newtri-science/synonym-tool/views/utils"
 )
 
 type AdminDashboardHandler struct {

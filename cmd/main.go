@@ -11,10 +11,10 @@ import (
 	"github.com/labstack/echo/v4/middleware"
 	"go.uber.org/zap"
 
-	"github.com/JoshLi15/synonym-tool/db"
-	"github.com/JoshLi15/synonym-tool/handler"
-	"github.com/JoshLi15/synonym-tool/services"
-	"github.com/JoshLi15/synonym-tool/utils"
+	"github.com/newtri-science/synonym-tool/db"
+	"github.com/newtri-science/synonym-tool/handler"
+	"github.com/newtri-science/synonym-tool/services"
+	"github.com/newtri-science/synonym-tool/utils"
 )
 
 func main() {

@@ -1,13 +1,13 @@
 name: Deploy app
 inputs:
   token:
-    description: 'A Github PAT'
+    description: "A Github PAT"
     required: true
   name:
-    description: 'The name of the app'
+    description: "The name of the app"
     required: true
   tag:
-    description: 'Docker tag that should be used'
+    description: "Docker tag that should be used"
     required: true
   version:
     description: 'The current version to display at the "/version" endpoint of the application'
@@ -20,12 +20,12 @@ inputs:
   subDomain:
     required: true
 runs:
-  using: 'composite'
+  using: "composite"
   steps:
     - name: Checkout k8s config repository
       uses: actions/checkout@v4
       with:
-        repository: 'michelm117/cycling-coach-lab-k8s'
+        repository: "michelm117/cycling-coach-lab-k8s"
         token: ${{ inputs.token }}
         ref: main
     - name: Generate values.yaml
@@ -51,7 +51,7 @@ runs:
     - name: Commit changes to k8s repository
       shell: bash
       run: |
-        helm template argocd-application --values values.yaml > apps/${{ inputs.name }}.yaml
+        helm template argocd-application-synonym --values values.yaml > apps/${{ inputs.name }}.yaml
         git config user.name github-actions
         git config user.email github-actions@github.com
         git add apps/${{ inputs.name }}.yaml

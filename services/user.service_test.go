@@ -10,9 +10,9 @@ import (
 
 	_ "github.com/jackc/pgx/stdlib"
 
-	"github.com/JoshLi15/synonym-tool/model"
-	"github.com/JoshLi15/synonym-tool/services"
-	"github.com/JoshLi15/synonym-tool/test_utils"
+	"github.com/newtri-science/synonym-tool/model"
+	"github.com/newtri-science/synonym-tool/services"
+	"github.com/newtri-science/synonym-tool/test_utils"
 )
 
 var DB *sql.DB

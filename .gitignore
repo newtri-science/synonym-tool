@@ -9,3 +9,5 @@ main
 cypress/screenshots
 cypress/videos
 yarn.lock
+pnpm.*
+.nx
