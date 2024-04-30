@@ -43,7 +43,7 @@ jobs:
           name: rls-synonym
           version: ${{ env.version }}
           token: ${{ secrets.GH_PAT }}
-          tlsName: ccl-rls-tls
+          tlsName: ccl-synonym-rls-tls
           persistence: false
       - name: Wait for release deployment
         run: |
