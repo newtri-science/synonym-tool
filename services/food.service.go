@@ -21,7 +21,7 @@ func NewFoodEntryService(db *sql.DB, logger *zap.SugaredLogger) *FoodEntryServic
 	}
 }
 
-// TODO: get by custom ID and Name
+// TODO: get by custom ID and Name!
 
 func (repo *FoodEntryService) GetAllFoodEntries() ([]*model.Food, error) {
 	rows, err := repo.db.Query("SELECT * FROM foods")
