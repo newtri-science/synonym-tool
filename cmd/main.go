@@ -49,20 +49,19 @@ func Setup(app *echo.Echo, db *sql.DB, logger *zap.SugaredLogger) {
 	}
 
 	app.GET("/", func(c echo.Context) error {
-		return c.Redirect(http.StatusTemporaryRedirect, "/users")
+		return c.Redirect(http.StatusTemporaryRedirect, "/food_entries")
 	})
 
 	utilsHandler := handler.NewUtilsHandler(db)
 	app.GET("/health", utilsHandler.HealthCheck)
 	app.GET("/version", utilsHandler.Version)
 
-	userService := services.NewUserService(db, logger)
-	dashboardHandler := handler.NewAdminDashboardHandler(userService, logger)
+	foodService := services.NewFoodEntryService(db, logger)
+	foodHandler := handler.NewFoodEntryHandler(foodService, logger)
 
-	group := app.Group("/users")
-	group.POST("/add", dashboardHandler.AddUser)
-	group.GET("", dashboardHandler.ListUsers)
-	group.DELETE("/delete/*", dashboardHandler.DeleteUser)
+	group := app.Group("/food_entries")
+	group.GET("", foodHandler.ListFoodEntries)
+	// TODO: Add, Delete and Update FoodEntry
 }
 
 func initLogger() *zap.SugaredLogger {

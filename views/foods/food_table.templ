@@ -1,0 +1,50 @@
+package food_table
+
+import (
+	"github.com/newtri-science/synonym-tool/model"
+	"github.com/newtri-science/synonym-tool/views/layout"
+	"fmt"
+)
+
+templ FoodTable(foods []*model.Food) {
+	<div id="foods" hx-swap-oob="true" class="h-full overflow-x-auto">
+		<table class="table table-auto">
+			<!-- head -->
+			<thead>
+				<tr>
+					<th>ID</th>
+					<th>Name</th>
+					<th>Actions</th>
+				</tr>
+			</thead>
+			<tbody data-cy="food-table">
+				for i, food:= range foods {
+					<tr data-cy="food-row">
+						<td>
+							{ fmt.Sprint(food.ID) }
+						</td>
+						<td>
+							{ food.Name }
+						</td>
+						<td class="dropdown dropdown-left overflow-visible">
+							<div data-cy="open-actions" tabindex="0" role="button" class="btn btn-xs btn-ghost">
+								<i class="fa-solid fa-ellipsis-vertical"></i>
+							</div>
+							<ul data-cy="actions" tabindex="0" class="dropdown-content z-[1] menu p-2 shadow bg-base-200 rounded-box">
+								<li data-cy="action-delete-food" class="text-warning">
+									@templ.Raw(fmt.Sprintf("<a onclick=\"delete_food_modal_%v.showModal()\"><i class=\"fa-solid fa-trash\"></i>Löschen</a>", i))
+								</li>
+							</ul>
+						</td>
+					</tr>
+				}
+			</tbody>
+		</table>
+	</div>
+}
+
+templ Index(foods []*model.Food) {
+	@layout.BaseLayout() {
+		@FoodTable(foods)
+	}
+}

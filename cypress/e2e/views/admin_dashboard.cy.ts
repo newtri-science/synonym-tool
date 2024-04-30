@@ -2,7 +2,7 @@ import { faker } from "@faker-js/faker";
 
 describe("Admin Dashboard", () => {
   beforeEach(() => {
-    cy.visit("/users");
+    cy.visit("/food_entries");
   });
 
   context("Mobile View", () => {
@@ -50,7 +50,10 @@ describe("Admin Dashboard", () => {
         cy.get(fieldSelector + ":invalid").should("have.length", 0);
       };
 
-      fillFieldAndCheckValidity("[data-cy=firstname]", faker.person.firstName());
+      fillFieldAndCheckValidity(
+        "[data-cy=firstname]",
+        faker.person.firstName()
+      );
       fillFieldAndCheckValidity("[data-cy=lastname]", faker.person.lastName());
 
       const email = faker.internet.email();
@@ -60,7 +63,10 @@ describe("Admin Dashboard", () => {
       cy.get("[data-cy=email]").type(email);
       cy.get("[data-cy=email]:invalid").should("have.length", 0);
 
-      fillFieldAndCheckValidity("[data-cy=password]", faker.internet.password());
+      fillFieldAndCheckValidity(
+        "[data-cy=password]",
+        faker.internet.password()
+      );
 
       fillFieldAndCheckValidity(
         "[data-cy=dateOfBirth]",
@@ -127,7 +133,10 @@ describe("Admin Dashboard", () => {
         cy.get(fieldSelector + ":invalid").should("have.length", 0);
       };
 
-      fillFieldAndCheckValidity("[data-cy=firstname]", faker.person.firstName());
+      fillFieldAndCheckValidity(
+        "[data-cy=firstname]",
+        faker.person.firstName()
+      );
       fillFieldAndCheckValidity("[data-cy=lastname]", faker.person.lastName());
 
       const email = faker.internet.email();
@@ -137,7 +146,10 @@ describe("Admin Dashboard", () => {
       cy.get("[data-cy=email]").type(email);
       cy.get("[data-cy=email]:invalid").should("have.length", 0);
 
-      fillFieldAndCheckValidity("[data-cy=password]", faker.internet.password());
+      fillFieldAndCheckValidity(
+        "[data-cy=password]",
+        faker.internet.password()
+      );
 
       fillFieldAndCheckValidity(
         "[data-cy=dateOfBirth]",

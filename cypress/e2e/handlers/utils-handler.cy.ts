@@ -1,7 +1,7 @@
 describe("Utils handler routes", () => {
-  it("/ should redirect to /users", () => {
+  it("/ should redirect to /food_entries", () => {
     cy.visit("/");
-    cy.url().should("include", "/users");
+    cy.url().should("include", "/food_entries");
   });
 
   it("version route should return version", () => {
