@@ -39,8 +39,8 @@ jobs:
         uses: ./.github/actions/deploy-app
         with:
           tag: ${{ env.version }}
-          subDomain: rls
-          name: rls
+          subDomain: rls-synonym
+          name: rls-synonym
           version: ${{ env.version }}
           token: ${{ secrets.GH_PAT }}
           tlsName: ccl-rls-tls
