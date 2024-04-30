@@ -3,13 +3,13 @@
   "prerelease": true,
   "prerelease-type": "alpha",
   "release-type": "simple",
-  "path": "cycling-coach-lab",
+  "path": "synonym-tool",
   "packages": {
     ".": {}
   },
   "extra-files": [
     {
-      "path": "deployments/cycling-coach-lab/Chart.yaml",
+      "path": "deployments/synonym-tool/Chart.yaml",
       "type": "generic"
     }
   ]

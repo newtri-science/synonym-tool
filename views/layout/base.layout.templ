@@ -1,14 +1,14 @@
 package layout
 
 import (
-	"github.com/JoshLi15/synonym-tool/views/components"
+	"github.com/newtri-science/synonym-tool/views/components"
 )
 
 templ BaseLayout() {
 	<!DOCTYPE html>
 	<html data-theme="light">
 		<head>
-			<title>Cycling Coach Lab</title>
+			<title>Trition Synonym Tool</title>
 			<meta charset="utf-8"/>
 			<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 			<link
@@ -79,7 +79,7 @@ templ Navbar() {
 		</div>
 		<div class="flex-1 px-2 mx-2">
 			<div class="lg:hidden">
-				Cycling coach lab
+				Trition Synonym Tool
 			</div>
 		</div>
 		<div class="flex-none">
@@ -90,10 +90,8 @@ templ Navbar() {
 				</div>
 				<ul tabindex="0" class="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-200 rounded-box w-52">
 					<li>
-						<a class="justify-between">
-							Profile
-							<span class="badge">New</span>
-						</a>
+						<!-- todo: use logged in user name here-->
+						Name
 					</li>
 					<li><a>Settings</a></li>
 					<li><a>Logout</a></li>
@@ -109,15 +107,15 @@ templ Sidebar() {
 		<ul class="menu p-4 md:min-w-72 min-h-full bg-base-300">
 			<!-- Sidebar content here -->
 			<h2 class="prose p4 mx-2 my-1 hidden lg:block">
-				Cycling coach lab
+				Trition API Tool
 			</h2>
 			<li class="mt-2">
 				<h2 class="menu-title">Administration</h2>
 				<ul>
 					<li>
-						<a data-cy="sidebar-user-management" href="/users">
-							<div class="fa-solid fa-users"></div>
-							Benutzerverwaltung
+						<a data-cy="sidebar-food-entries" href="/food_entries">
+							<div class="fa-solid fa-copy"></div>
+							Food Entries
 						</a>
 					</li>
 				</ul>

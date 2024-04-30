@@ -13,7 +13,7 @@ import (
 	"github.com/testcontainers/testcontainers-go/wait"
 	"go.uber.org/zap"
 
-	DB "github.com/JoshLi15/synonym-tool/db"
+	DB "github.com/newtri-science/synonym-tool/db"
 )
 
 type TestDatabase struct {

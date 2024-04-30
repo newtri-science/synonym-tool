@@ -8,9 +8,9 @@ inputs:
     required: true
   isLatest:
     required: false
-    default: 'false'
+    default: "false"
 runs:
-  using: 'composite'
+  using: "composite"
   steps:
     - name: Set up QEMU
       uses: docker/setup-qemu-action@v3
@@ -28,7 +28,7 @@ runs:
         context: .
         push: true
         tags: |
-          ${{ inputs.docker_user }}/cycling-coach-lab:${{ inputs.tag }}
+          ${{ inputs.docker_user }}/synonym-tool:${{ inputs.tag }}
     - name: Build and release docker image
       if: ${{ inputs.isLatest == 'true' }}
       uses: docker/build-push-action@v5
@@ -36,5 +36,5 @@ runs:
         context: .
         push: true
         tags: |
-          ${{ inputs.docker_user }}/cycling-coach-lab:${{ inputs.tag }}
-          ${{ inputs.docker_user }}/cycling-coach-lab:latest
+          ${{ inputs.docker_user }}/synonym-tool:${{ inputs.tag }}
+          ${{ inputs.docker_user }}/synonym-tool:latest

@@ -40,8 +40,8 @@ describe("Sidebar", () => {
     });
 
     it("should navigate to the home page", () => {
-      cy.get('[data-cy="sidebar-user-management"]').click();
-      cy.url().should("eq", Cypress.config().baseUrl + "/users");
+      cy.get('[data-cy="sidebar-food-entries"]').click();
+      cy.url().should("eq", Cypress.config().baseUrl + "/food_entries");
     });
   });
 });

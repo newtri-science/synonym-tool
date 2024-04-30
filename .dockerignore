@@ -18,7 +18,6 @@ deployments
 # .air.toml
 # .env*
 # .package*.json
-# cycling-coach-lab
 # assets
 
 # Ignore everything

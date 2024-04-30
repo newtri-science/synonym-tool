@@ -4,7 +4,7 @@ import (
 	"os"
 	"testing"
 
-	"github.com/JoshLi15/synonym-tool/utils"
+	"github.com/newtri-science/synonym-tool/utils"
 )
 
 var ENVS = []string{"ENV", "DB_HOST", "DB_PORT", "DB_USER", "DB_PASSWORD", "DB_NAME", "VERSION"}
@@ -34,7 +34,7 @@ func TestCheckForRequiredEnvVars(t *testing.T) {
 			"DB_PORT":     "5432",
 			"DB_USER":     "user",
 			"DB_PASSWORD": "password",
-			"DB_NAME":     "cycling_coach_lab",
+			"DB_NAME":     "synonym_tool",
 			"VERSION":     "latest",
 		}, false},
 
@@ -42,7 +42,7 @@ func TestCheckForRequiredEnvVars(t *testing.T) {
 			"DB_HOST": "localhost",
 			"DB_PORT": "5432",
 			"DB_USER": "user",
-			"DB_NAME": "cycling_coach_lab",
+			"DB_NAME": "synonym_tool",
 		}, true},
 		// Add more test cases for other environment variables
 	}

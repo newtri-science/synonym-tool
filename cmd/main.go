@@ -11,10 +11,10 @@ import (
 	"github.com/labstack/echo/v4/middleware"
 	"go.uber.org/zap"
 
-	"github.com/JoshLi15/synonym-tool/db"
-	"github.com/JoshLi15/synonym-tool/handler"
-	"github.com/JoshLi15/synonym-tool/services"
-	"github.com/JoshLi15/synonym-tool/utils"
+	"github.com/newtri-science/synonym-tool/db"
+	"github.com/newtri-science/synonym-tool/handler"
+	"github.com/newtri-science/synonym-tool/services"
+	"github.com/newtri-science/synonym-tool/utils"
 )
 
 func main() {
@@ -49,20 +49,19 @@ func Setup(app *echo.Echo, db *sql.DB, logger *zap.SugaredLogger) {
 	}
 
 	app.GET("/", func(c echo.Context) error {
-		return c.Redirect(http.StatusTemporaryRedirect, "/users")
+		return c.Redirect(http.StatusTemporaryRedirect, "/food_entries")
 	})
 
 	utilsHandler := handler.NewUtilsHandler(db)
 	app.GET("/health", utilsHandler.HealthCheck)
 	app.GET("/version", utilsHandler.Version)
 
-	userService := services.NewUserService(db, logger)
-	dashboardHandler := handler.NewAdminDashboardHandler(userService, logger)
+	foodService := services.NewFoodEntryService(db, logger)
+	foodHandler := handler.NewFoodEntryHandler(foodService, logger)
 
-	group := app.Group("/users")
-	group.POST("/add", dashboardHandler.AddUser)
-	group.GET("", dashboardHandler.ListUsers)
-	group.DELETE("/delete/*", dashboardHandler.DeleteUser)
+	group := app.Group("/food_entries")
+	group.GET("", foodHandler.ListFoodEntries)
+	// TODO: Add, Delete and Update FoodEntry
 }
 
 func initLogger() *zap.SugaredLogger {

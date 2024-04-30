@@ -4,7 +4,7 @@ import (
 	"log"
 	"os"
 
-	"github.com/JoshLi15/synonym-tool/db"
+	"github.com/newtri-science/synonym-tool/db"
 )
 
 type TestEnvironment struct {
