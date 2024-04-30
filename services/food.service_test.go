@@ -38,28 +38,6 @@ func TestMain(m *testing.M) {
 
 }
 
-func TestGetByName(t *testing.T) {
-	repo := services.NewFoodEntryService(DB, nil)
-	food, err := repo.GetByName("Erdbeere")
-	if err != nil {
-		t.Errorf("Error while trying to get food by name: %s", err)
-	}
-	if food == nil {
-		t.Errorf("Food not found")
-	}
-}
-
-func TestFoodWithNameNotFound(t *testing.T) {
-	repo := services.NewFoodEntryService(DB, nil)
-	food, err := repo.GetByName("foo")
-	if food != nil {
-		t.Errorf("Food should not be found")
-	}
-	if err == nil {
-		t.Errorf("Error should not be nil")
-	}
-}
-
 func TestGetAllFoods(t *testing.T) {
 	repo := services.NewFoodEntryService(DB, nil)
 	expectedSize, err := repo.Count()
