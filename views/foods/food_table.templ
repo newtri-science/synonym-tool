@@ -1,10 +1,26 @@
-package food_table
+package foods
 
 import (
 	"github.com/newtri-science/synonym-tool/model"
 	"github.com/newtri-science/synonym-tool/views/layout"
 	"fmt"
 )
+
+templ FoodUpload() {
+	<div id="food-upload">
+		<form
+			hx-post="/food_entries/upload"
+			hx-swap="outerHTML"
+			hx-target="#food-table"
+			hx-encoding="multipart/form-data"
+		>
+			<input name="food-entries-file" type="file" accept="text/csv" class="file-input file-input-bordered file-input-info w-full max-w-xs"/>
+			<button data-cy="upload-food-submit" type="submit" class="btn btn-primary">
+				Upload
+			</button>
+		</form>
+	</div>
+}
 
 templ FoodSearch() {
 	<div id="food-search">
@@ -19,12 +35,12 @@ templ FoodSearch() {
 }
 
 templ FoodTable(foods []*model.Food) {
-	<div id="food-table" class="overflow-x-auto h-96 w-96">
-		<table class="table table-zebra table-xs table-pin-rows table-pin-cols">
+	<div id="food-table" class="overflow-x-auto h-96 w-full">
+		<table class="table table-zebra table-xs table-pin-rows">
 			<!-- head -->
 			<thead>
 				<tr>
-					<th>Number</th>
+					<th>ID</th>
 					<th>Name</th>
 					<th>RetentionCategory</th>
 					<th>GeneralCategory</th>
@@ -169,10 +185,10 @@ templ FoodTable(foods []*model.Food) {
 				</tr>
 			</thead>
 			<tbody data-cy="food-table">
-				for i, food:= range foods {
+				for _, food:= range foods {
 					<tr data-cy="food-row">
 						<td>
-							{ fmt.Sprint(i) }
+							{ fmt.Sprint(food.ID) }
 						</td>
 						<td>
 							{ food.Name }
@@ -606,6 +622,7 @@ templ FoodTable(foods []*model.Food) {
 
 templ Index(foods []*model.Food) {
 	@layout.BaseLayout() {
+		@FoodUpload()
 		@FoodSearch()
 		@FoodTable(foods)
 	}

@@ -62,7 +62,7 @@ func Setup(app *echo.Echo, db *sql.DB, logger *zap.SugaredLogger) {
 	group := app.Group("/food_entries")
 	group.GET("", foodHandler.ListFoodPage)
 	group.GET("/table", foodHandler.ListFoodEntries)
-	// TODO: Add, Delete and Update FoodEntry
+	group.POST("/upload", foodHandler.UploadFoodEntries)
 }
 
 func initLogger() *zap.SugaredLogger {
