@@ -60,7 +60,8 @@ func Setup(app *echo.Echo, db *sql.DB, logger *zap.SugaredLogger) {
 	foodHandler := handler.NewFoodEntryHandler(foodService, logger)
 
 	group := app.Group("/food_entries")
-	group.GET("", foodHandler.ListFoodEntries)
+	group.GET("", foodHandler.ListFoodPage)
+	group.GET("/table", foodHandler.ListFoodEntries)
 	// TODO: Add, Delete and Update FoodEntry
 }
 
