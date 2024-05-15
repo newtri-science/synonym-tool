@@ -1,8 +1,73 @@
---DROP TYPE IF EXISTS user_status; 
---CREATE TYPE user_status AS ENUM ('active', 'inactive');
+------------------------------------------------------------
+--                        Enums                           --
+------------------------------------------------------------
+--CREATE TYPE IF NOT EXISTS user_roles AS ENUM ('admin', 'athlete');
+DO $$
+BEGIN
+    IF NOT EXISTS (SELECT 1 FROM pg_type WHERE typname = 'user_roles') THEN
+        CREATE TYPE user_roles AS ENUM ('admin', 'athlete');
+    END IF;
+END
+$$;
 
--- TODO: add OUR ID, add 13 more categories?
--- TODO: make type safe (categories, float OR int, etc.)
+-- CREATE TYPE user_status AS ENUM ('active', 'inactive');
+DO $$
+BEGIN
+    IF NOT EXISTS (SELECT 1 FROM pg_type WHERE typname = 'user_status') THEN
+        CREATE TYPE user_status AS ENUM ('active', 'inactive');
+    END IF;
+END
+$$;
+
+------------------------------------------------------------
+--                   Users Table                          --
+------------------------------------------------------------
+CREATE TABLE IF NOT EXISTS users (
+  id SERIAL PRIMARY KEY,
+  email VARCHAR(100) NOT NULL UNIQUE,
+  firstname VARCHAR(50),
+  lastname VARCHAR(50),
+  date_of_birth DATE,
+  password_hash VARCHAR(100),
+  status user_status,
+  role user_roles,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+INSERT INTO users (email, firstname, lastname, date_of_birth, password_hash, status, role, created_at, updated_at)
+VALUES
+  ('admin@example.com', 'admin', 'admin', '1990-01-01', 'hash123', 'active', 'admin', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+  ('test@test.de', 'admin', 'admin', '1990-01-01', 'hash123', 'active', 'admin', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+  ('jan@ullrich.de', 'Jan', 'Ullrich', '1973-12-02', 'hash456', 'inactive', 'athlete', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+  ('mathieu@van-der-pole.be', 'Mathieu', 'van der Poel', '1995-01-19', 'hash456', 'active', 'athlete', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+
+------------------------------------------------------------
+--                   Sessions Table                       --
+------------------------------------------------------------
+CREATE TABLE IF NOT EXISTS sessions (
+  id UUID PRIMARY KEY,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  user_id INT REFERENCES users(id) ON DELETE CASCADE 
+);
+
+
+------------------------------------------------------------
+--               Global Settings Table                    --
+------------------------------------------------------------
+CREATE TABLE IF NOT EXISTS globalSettings
+(
+    SectionName VARCHAR(50),
+    SettingName VARCHAR(50),
+    SettingValue VARCHAR(1000),
+    SettingType SMALLINT DEFAULT 1,
+
+    PRIMARY KEY (SectionName, SettingName)
+);
+
+------------------------------------------------------------
+--                     Food Table                         --
+------------------------------------------------------------
 CREATE TABLE foods (
     id SERIAL PRIMARY KEY,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
@@ -157,3 +222,21 @@ VALUES
   (CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Brombeere', 'whole_fruit', 'whole_fruit', 'whole_fruit', 41.5, 180.625, 86125.0, 1150.0, 850.0, 6370.0, 4200.0, 510.0, 1700.0, 0.0, 9.0, 32.0, 0.0, 113.0, 184.0, 0.0, 940.0, 600.0, 0.0, 20.0, 35.0, 435.0, 650.0, 230.0, 35.0, 0.4, 25.05, 0.0, 13850.0, 1.5, 195.0, 37.5, 25.0, 27.5, 12.0, 20.0, 650.0, 195.0, 100.0, 970.0, 24.0, 0.4, 0.0, 0.0, 3214.25, 0.0, 3214.25, 1999.5, 2102.75, 0.0, 4102.25, 114.5, 0.0, 0.0, 114.5, 5158.375, 0.0, 0.0, 0.0, 0.0, 0.0, 1088.0, 787.0, 486.0, 582.0, 256.0, 960.0, 2200.0, 31.0, 69.0, 38.0, 23.0, 15.0, 46.0, 31.0, 46.0, 15.0, 53.0, 84.0, 38.0, 489.0, 69.0, 222.0, 245.0, 61.0, 54.0, 61.0, 712.0, 15.0, 5.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 44.0, 0.0, 16.0, 0.0, 0.0, 0.0, 80.0, 0.0, 0.0, 4.0, 0.0, 120.0, 0.0, 0.0, 0.0, 162.0, 0.0, 0.0, 360.0, 256.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 508.0, 0.0, 0.0, 800.0, 256.0, 360.0, 200.0, 0.0, 2.5),
   (CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Clementine', 'whole_fruit', 'whole_fruit', 'whole_fruit', 46.0, 192.0, 86102.0, 699.0, 299.0, 9000.0, 2000.0, 700.0, 1200.0, 0.0, 0.0, 50.0, 0.0, 0.0, 300.0, 0.0, 300.0, 300.0, 3.0, 70.0, 20.0, 200.0, 350.0, 200.0, 50.0, 0.5, 15.0, 0.0, 30000.0, 2.0, 180.0, 35.0, 11.0, 20.0, 10.0, 3.0, 300.0, 100.0, 90.0, 40.0, 10.0, 0.8, 0.0, 0.0, 0.0, 0.0, 0.0, 1530.0, 1692.0, 0.0, 3222.0, 5778.0, 0.0, 0.0, 5778.0, 9000.0, 0.0, 0.0, 0.0, 0.0, 0.0, 400.0, 300.0, 600.0, 400.0, 300.0, 788.0, 1212.0, 22.0, 22.0, 41.0, 13.0, 9.0, 28.0, 13.0, 13.0, 9.0, 32.0, 59.0, 13.0, 274.0, 46.0, 129.0, 92.0, 74.0, 50.0, 32.0, 423.0, 20.0, 7.0, 0.0, 0.0, 0.0, 0.0, 0.0, 2.0, 0.0, 57.0, 0.0, 2.0, 0.0, 0.0, 0.0, 61.0, 0.0, 0.0, 7.0, 0.0, 48.0, 0.0, 0.0, 0.0, 55.0, 0.0, 0.0, 87.0, 36.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 123.0, 0.0, 0.0, 239.0, 36.0, 87.0, 60.0, 0.0, 5.0),
   (CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Erdbeere', 'whole_fruit', 'whole_fruit', 'whole_fruit', 35.5, 148.5, 90035.0, 710.0, 450.0, 5755.0, 2900.0, 500.0, 1000.0, 0.0, 0.0, 2.0, 0.0, 3.0, 9.5, 0.0, 210.0, 120.0, 5.0, 25.5, 37.0, 440.0, 784.75, 210.0, 50.0, 4.0, 42.35, 0.0, 56400.0, 1.0, 152.0, 18.5, 12.5, 24.0, 13.0, 35.5, 421.0, 99.0, 46.0, 400.0, 16.0, 1.9, 0.5, 0.0, 32.0, 28.0, 60.0, 2181.0, 2250.75, 0.0, 4431.75, 1008.0, 0.0, 0.0, 1008.0, 5519.875, 0.0, 0.0, 0.0, 0.0, 0.0, 456.0, 304.0, 810.0, 330.0, 100.0, 580.0, 1050.0, 20.5, 47.75, 37.0, 1.0, 7.75, 27.25, 31.25, 28.25, 16.5, 27.25, 40.0, 17.5, 302.0, 47.75, 208.25, 137.25, 37.0, 29.25, 36.0, 495.5, 21.0, 7.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 26.25, 0.0, 5.0, 0.0, 0.0, 0.0, 31.0, 0.0, 0.0, 1.0, 0.0, 60.5, 0.0, 0.0, 0.0, 61.5, 0.0, 0.0, 130.0, 102.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 232.0, 0.0, 0.0, 324.5, 102.0, 130.0, 78.5, 0.0, 1.5);
+
+  -- Create triggers to enforce lowercase on insert and update
+CREATE OR REPLACE FUNCTION lowercase_setting_name()
+RETURNS TRIGGER AS $$
+BEGIN
+    NEW.SectionName := LOWER(NEW.SectionName);
+    NEW.SettingName := LOWER(NEW.SettingName);
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+DROP TRIGGER IF EXISTS lowercase_setting_name_trigger ON globalSettings;
+CREATE TRIGGER lowercase_setting_name_trigger
+BEFORE INSERT OR UPDATE ON globalSettings
+FOR EACH ROW
+EXECUTE FUNCTION lowercase_setting_name();
+
+INSERT INTO globalSettings (SectionName, SettingName, SettingValue, SettingType) VALUES ('APP', 'initialized', 'false', 2);

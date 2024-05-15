@@ -7,7 +7,7 @@ import (
 	"github.com/newtri-science/synonym-tool/utils"
 )
 
-var ENVS = []string{"ENV", "DB_HOST", "DB_PORT", "DB_USER", "DB_PASSWORD", "DB_NAME", "VERSION"}
+var ENVS = []string{"ENV", "DB_HOST", "DB_PORT", "DB_USER", "DB_PASSWORD", "DB_NAME", "VERSION", "SESSION_SECRET"}
 
 func TestCheckForRequiredEnvVars(t *testing.T) {
 	// Save the original environment variables
@@ -29,20 +29,21 @@ func TestCheckForRequiredEnvVars(t *testing.T) {
 		wantErr bool
 	}{
 		{"Variable all set", map[string]string{
-			"ENV":         "development",
-			"DB_HOST":     "localhost",
-			"DB_PORT":     "5432",
-			"DB_USER":     "user",
-			"DB_PASSWORD": "password",
-			"DB_NAME":     "synonym_tool",
-			"VERSION":     "latest",
+			"ENV":            "development",
+			"DB_HOST":        "localhost",
+			"DB_PORT":        "5432",
+			"DB_USER":        "user",
+			"DB_PASSWORD":    "password",
+			"DB_NAME":        "cycling_coach_lab",
+			"VERSION":        "latest",
+			"SESSION_SECRET": "foobar",
 		}, false},
 
 		{"Variables missing", map[string]string{
 			"DB_HOST": "localhost",
 			"DB_PORT": "5432",
 			"DB_USER": "user",
-			"DB_NAME": "synonym_tool",
+			"DB_NAME": "cycling_coach_lab",
 		}, true},
 		// Add more test cases for other environment variables
 	}
