@@ -1,7 +1,10 @@
 package services_test
 
 import (
+	"context"
 	"database/sql"
+	"log"
+	"os"
 	"testing"
 
 	_ "github.com/jackc/pgx/stdlib"
@@ -9,6 +12,7 @@ import (
 
 	"github.com/newtri-science/synonym-tool/model"
 	"github.com/newtri-science/synonym-tool/services"
+	"github.com/newtri-science/synonym-tool/test_utils"
 )
 
 var DB *sql.DB
@@ -156,28 +160,28 @@ var f = model.Food{
 	Salt: 1.0,
 }
 
-// func TestMain(m *testing.M) {
-// 	// Setup test environment
-// 	ctx := context.Background()
-// 	testDb := test_utils.CreateTestContainer(ctx)
-// 	container := testDb.Container
+func TestMain(m *testing.M) {
+	// Setup test environment
+	ctx := context.Background()
+	testDb := test_utils.CreateTestContainer(ctx)
+	container := testDb.Container
 
-// 	DB = testDb.Db
+	DB = testDb.Db
 
-// 	// Run the actual tests
-// 	exitCode := m.Run()
+	// Run the actual tests
+	exitCode := m.Run()
 
-// 	// Perform tear down
-// 	defer func() {
-// 		if err := container.Terminate(ctx); err != nil {
-// 			log.Fatalf("failed to terminate container: %s", err)
-// 		}
-// 	}()
+	// Perform tear down
+	defer func() {
+		if err := container.Terminate(ctx); err != nil {
+			log.Fatalf("failed to terminate container: %s", err)
+		}
+	}()
 
-// 	// Exit with the exit code from the tests
-// 	os.Exit(exitCode)
+	// Exit with the exit code from the tests
+	os.Exit(exitCode)
 
-// }
+}
 
 func TestGetByName(t *testing.T) {
 	repo := services.NewFoodEntryService(DB, nil)
