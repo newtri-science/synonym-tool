@@ -1,8 +1,8 @@
 package layout
 
 import (
-	"github.com/michelm117/cycling-coach-lab/model"
-	"github.com/michelm117/cycling-coach-lab/views/components"
+	"github.com/newtri-science/synonym-tool/model"
+	"github.com/newtri-science/synonym-tool/views/components"
 )
 
 templ DashboardLayout(au *model.User, theme string) {
@@ -68,6 +68,18 @@ templ Sidebar(au *model.User) {
 							hx-get="/users/view"
 							hx-target="#dashboard-view"
 							hx-replace-url="/users"
+						>
+							<div class="fa-solid fa-users"></div>
+							Benutzerverwaltung
+						</a>
+					</li>
+					<li>
+						<a
+							data-cy="sidebar-food-management"
+							hx-trigger="click"
+							hx-get="/food_entries"
+							hx-target="#dashboard-view"
+							hx-replace-url="/food_entries"
 						>
 							<div class="fa-solid fa-users"></div>
 							Benutzerverwaltung
@@ -158,7 +170,7 @@ templ ProfileDropDownMenu(au *model.User) {
 				<div class="h-px my-1 -mx-1 bg-neutral-content"></div>
 				<a
 					@click="dropdownOpen=false"
-					href="https://github.com/michelm117/cycling-coach-lab"
+					href="https://github.com/newtri-science/synonym-tool"
 					target="_blank"
 					class="relative flex cursor-pointer select-none hover:bg-base-300 items-center rounded px-2 py-1.5 text-sm outline-none transition-colors focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50"
 				>

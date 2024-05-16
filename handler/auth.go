@@ -6,9 +6,9 @@ import (
 	"github.com/labstack/echo/v4"
 	"go.uber.org/zap"
 
-	"github.com/michelm117/cycling-coach-lab/services"
-	"github.com/michelm117/cycling-coach-lab/utils"
-	"github.com/michelm117/cycling-coach-lab/views/pages"
+	"github.com/newtri-science/synonym-tool/services"
+	"github.com/newtri-science/synonym-tool/utils"
+	"github.com/newtri-science/synonym-tool/views/pages"
 )
 
 const (

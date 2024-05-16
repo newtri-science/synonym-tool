@@ -16,6 +16,7 @@ import (
 
 	"github.com/newtri-science/synonym-tool/db"
 	"github.com/newtri-science/synonym-tool/handler"
+	"github.com/newtri-science/synonym-tool/middlewares"
 	"github.com/newtri-science/synonym-tool/services"
 	"github.com/newtri-science/synonym-tool/utils"
 )

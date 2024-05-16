@@ -6,10 +6,10 @@ import (
 	"github.com/labstack/echo/v4"
 	"go.uber.org/zap"
 
-	"github.com/michelm117/cycling-coach-lab/db"
-	"github.com/michelm117/cycling-coach-lab/model"
-	"github.com/michelm117/cycling-coach-lab/utils"
-	"github.com/michelm117/cycling-coach-lab/views/pages"
+	"github.com/newtri-science/synonym-tool/db"
+	"github.com/newtri-science/synonym-tool/model"
+	"github.com/newtri-science/synonym-tool/utils"
+	"github.com/newtri-science/synonym-tool/views/pages"
 )
 
 type SettingsHandler struct {

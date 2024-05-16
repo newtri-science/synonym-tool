@@ -7,8 +7,8 @@ import (
 	_ "github.com/jackc/pgx/stdlib"
 	"github.com/stretchr/testify/assert"
 
-	"github.com/michelm117/cycling-coach-lab/model"
-	"github.com/michelm117/cycling-coach-lab/services"
+	"github.com/newtri-science/synonym-tool/model"
+	"github.com/newtri-science/synonym-tool/services"
 )
 
 func TestCreate_ValidInput(t *testing.T) {

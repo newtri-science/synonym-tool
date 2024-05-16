@@ -2,7 +2,6 @@ package handler
 
 import (
 	"fmt"
-	"net/http"
 
 	"github.com/labstack/echo/v4"
 	"go.uber.org/zap"
@@ -10,7 +9,7 @@ import (
 	"github.com/newtri-science/synonym-tool/model"
 	"github.com/newtri-science/synonym-tool/scripts"
 	"github.com/newtri-science/synonym-tool/services"
-	"github.com/newtri-science/synonym-tool/views/foods"
+	"github.com/newtri-science/synonym-tool/views/pages"
 )
 
 type FoodEntryHandler struct {
@@ -26,12 +25,13 @@ func NewFoodEntryHandler(
 }
 
 func (h FoodEntryHandler) ListFoodPage(c echo.Context) error {
+	au := c.(model.AuthenticatedContext).User
 	foodEntries, err := h.s.GetAllFoodEntries()
 
 	if err != nil {
 		fmt.Println("error when looking for all foodEntries:" + err.Error())
 	}
-	return Render(c, foods.Index(foodEntries), http.StatusOK)
+	return Render(c, pages.Index(au, GetTheme(c), foodEntries))
 }
 
 func (h FoodEntryHandler) ListFoodEntries(c echo.Context) error {
@@ -52,7 +52,7 @@ func (h FoodEntryHandler) ListFoodEntries(c echo.Context) error {
 	if err != nil {
 		fmt.Println("error when looking for all foodEntries:" + err.Error())
 	}
-	return Render(c, foods.FoodTable(foodEntries), http.StatusOK)
+	return Render(c, pages.FoodTable(foodEntries))
 }
 
 func (h FoodEntryHandler) UploadFoodEntries(c echo.Context) error {
@@ -77,7 +77,7 @@ func (h FoodEntryHandler) UploadFoodEntries(c echo.Context) error {
 	if err != nil {
 		fmt.Println("error when looking for all foodEntries:" + err.Error())
 	}
-	return Render(c, foods.FoodTable(allFoodEntries), http.StatusOK)
+	return Render(c, pages.FoodTable(allFoodEntries))
 }
 
 // TODO: Add, Delete and Update FoodEntry

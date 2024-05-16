@@ -15,10 +15,10 @@ import (
 	"go.uber.org/mock/gomock"
 	"go.uber.org/zap/zaptest"
 
-	"github.com/michelm117/cycling-coach-lab/handler"
-	"github.com/michelm117/cycling-coach-lab/mocks"
-	"github.com/michelm117/cycling-coach-lab/model"
-	"github.com/michelm117/cycling-coach-lab/test_utils"
+	"github.com/newtri-science/synonym-tool/handler"
+	"github.com/newtri-science/synonym-tool/mocks"
+	"github.com/newtri-science/synonym-tool/model"
+	"github.com/newtri-science/synonym-tool/test_utils"
 )
 
 func createLoginRequest(email, password string) *http.Request {

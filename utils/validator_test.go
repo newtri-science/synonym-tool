@@ -7,8 +7,8 @@ import (
 	"github.com/stretchr/testify/assert"
 	"go.uber.org/mock/gomock"
 
-	"github.com/michelm117/cycling-coach-lab/mocks"
-	"github.com/michelm117/cycling-coach-lab/utils"
+	"github.com/newtri-science/synonym-tool/mocks"
+	"github.com/newtri-science/synonym-tool/utils"
 )
 
 func TestValidateNonEmptyStringField(t *testing.T) {

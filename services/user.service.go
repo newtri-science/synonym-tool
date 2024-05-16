@@ -6,7 +6,7 @@ import (
 
 	"go.uber.org/zap"
 
-	"github.com/michelm117/cycling-coach-lab/model"
+	"github.com/newtri-science/synonym-tool/model"
 )
 
 type UserServicer interface {

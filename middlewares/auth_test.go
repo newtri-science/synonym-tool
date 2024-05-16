@@ -11,9 +11,9 @@ import (
 	"github.com/stretchr/testify/assert"
 	"go.uber.org/mock/gomock"
 
-	"github.com/michelm117/cycling-coach-lab/middlewares"
-	"github.com/michelm117/cycling-coach-lab/mocks"
-	"github.com/michelm117/cycling-coach-lab/model"
+	"github.com/newtri-science/synonym-tool/middlewares"
+	"github.com/newtri-science/synonym-tool/mocks"
+	"github.com/newtri-science/synonym-tool/model"
 )
 
 func setupEchoContext() (e *echo.Echo, c echo.Context, rec *httptest.ResponseRecorder) {

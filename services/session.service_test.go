@@ -9,7 +9,7 @@ import (
 	_ "github.com/jackc/pgx/stdlib"
 	"github.com/stretchr/testify/assert"
 
-	"github.com/michelm117/cycling-coach-lab/services"
+	"github.com/newtri-science/synonym-tool/services"
 )
 
 func SetUpTestSession(userID int, sessionService services.SessionServicer, t *testing.T) string {

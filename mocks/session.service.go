@@ -12,7 +12,7 @@ package mocks
 import (
 	reflect "reflect"
 
-	model "github.com/michelm117/cycling-coach-lab/model"
+	model "github.com/newtri-science/synonym-tool/model"
 	gomock "go.uber.org/mock/gomock"
 )
 

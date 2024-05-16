@@ -10,7 +10,7 @@ import (
 	"github.com/labstack/echo/v4"
 	"github.com/stretchr/testify/assert"
 
-	"github.com/michelm117/cycling-coach-lab/handler"
+	"github.com/newtri-science/synonym-tool/handler"
 )
 
 func TestHealthCheckHandler(t *testing.T) {

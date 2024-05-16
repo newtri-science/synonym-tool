@@ -1,4 +1,4 @@
-package foods
+package pages
 
 import (
 	"github.com/newtri-science/synonym-tool/model"
@@ -620,8 +620,9 @@ templ FoodTable(foods []*model.Food) {
 	</div>
 }
 
-templ Index(foods []*model.Food) {
-	@layout.BaseLayout() {
+// TODO
+templ Index(au *model.User, theme string, foods []*model.Food) {
+	@layout.DashboardLayout(au, theme) {
 		@FoodUpload()
 		@FoodSearch()
 		@FoodTable(foods)
