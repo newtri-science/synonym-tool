@@ -25,11 +25,11 @@ func NewBrowserSessionManager() BrowserSessionManager {
 }
 
 func (m *BrowserSessionManage) Get(c echo.Context) (*sessions.Session, error) {
-	return session.Get("cyclinet-coach-lab", c)
+	return session.Get("newtryet-tool", c)
 }
 
 func (m *BrowserSessionManage) SaveSession(c echo.Context, sessionID string) error {
-	browserSession, err := session.Get("cyclinet-coach-lab", c)
+	browserSession, err := session.Get("newtryet-tool", c)
 	if err != nil {
 		return err
 	}

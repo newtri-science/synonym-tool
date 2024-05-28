@@ -120,9 +120,11 @@ func Setup(app *echo.Echo, db *sql.DB, migrator db.Migrator, logger *zap.Sugared
 	usersRoute.POST("", userManagementHandler.RenderAddUser)
 	usersRoute.DELETE("/:id", userManagementHandler.DeleteUser)
 
-	foodHandler := handler.NewFoodEntryHandler(foodServicer, logger)
+	foodHandler := handler.NewFoodManagementHandler(foodServicer, logger)
 	foodRoute := app.Group("/food_entries")
-	foodRoute.GET("", foodHandler.ListFoodPage)
+	foodRoute.Use(middlewares.Authentication(sessionService, browserSessionManager))
+	foodRoute.Use(middlewares.Autheratziation(enforcer))
+	foodRoute.GET("", foodHandler.RenderFoodManagementPage)
 	foodRoute.GET("/table", foodHandler.ListFoodEntries)
 	foodRoute.POST("/upload", foodHandler.UploadFoodEntries)
 

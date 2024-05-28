@@ -12,7 +12,7 @@ import (
 )
 
 const (
-	sessionCookieName = "cycling-coach-lab"
+	sessionCookieName = "newtry-tool"
 )
 
 type AuthHandler struct {

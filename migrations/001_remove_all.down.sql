@@ -14,3 +14,4 @@ DELETE FROM users;
 DELETE FROM globalSettings;
 -- INSERT INTO globalSettings (SectionName, SettingName, SettingValue, SettingType) VALUES ('APP', 'initialized', 'true', 2);
 
+DELETE FROM foods;

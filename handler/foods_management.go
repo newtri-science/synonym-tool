@@ -12,19 +12,19 @@ import (
 	"github.com/newtri-science/synonym-tool/views/pages"
 )
 
-type FoodEntryHandler struct {
+type FoodManagementHandler struct {
 	s   *services.FoodEntryService
 	logger *zap.SugaredLogger
 }
 
-func NewFoodEntryHandler(
+func NewFoodManagementHandler(
 	repo *services.FoodEntryService,
 	logger *zap.SugaredLogger,
-) FoodEntryHandler {
-	return FoodEntryHandler{s: repo, logger: logger}
+) FoodManagementHandler {
+	return FoodManagementHandler{s: repo, logger: logger}
 }
 
-func (h FoodEntryHandler) ListFoodPage(c echo.Context) error {
+func (h FoodManagementHandler) RenderFoodManagementPage(c echo.Context) error {
 	au := c.(model.AuthenticatedContext).User
 	foodEntries, err := h.s.GetAllFoodEntries()
 
@@ -34,7 +34,7 @@ func (h FoodEntryHandler) ListFoodPage(c echo.Context) error {
 	return Render(c, pages.Index(au, GetTheme(c), foodEntries))
 }
 
-func (h FoodEntryHandler) ListFoodEntries(c echo.Context) error {
+func (h FoodManagementHandler) ListFoodEntries(c echo.Context) error {
 	param := c.QueryParam("name")
 	var foodEntries []*model.Food
     var err error
@@ -55,7 +55,7 @@ func (h FoodEntryHandler) ListFoodEntries(c echo.Context) error {
 	return Render(c, pages.FoodTable(foodEntries))
 }
 
-func (h FoodEntryHandler) UploadFoodEntries(c echo.Context) error {
+func (h FoodManagementHandler) UploadFoodEntries(c echo.Context) error {
 	file, err := c.FormFile("food-entries-file")
 	if err != nil {
         fmt.Println("no file provided for food entries upload: " + err.Error())
