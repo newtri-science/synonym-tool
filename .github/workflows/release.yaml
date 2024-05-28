@@ -48,7 +48,7 @@ jobs:
         if: ${{ steps.release.outputs.release_created }}
         uses: ./.github/actions/deploy-app
         with:
-          name: prod
+          name: prod-newtri
           tag: ${{ steps.release.outputs.major }}.${{ steps.release.outputs.minor }}.${{ steps.release.outputs.patch }}
           version: ${{ steps.release.outputs.major }}.${{ steps.release.outputs.minor }}.${{ steps.release.outputs.patch }}
           token: ${{ secrets.GH_PAT }}

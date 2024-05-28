@@ -1,0 +1,630 @@
+package pages
+
+import (
+	"github.com/newtri-science/synonym-tool/model"
+	"github.com/newtri-science/synonym-tool/views/layout"
+	"fmt"
+)
+
+templ FoodUpload() {
+	<div id="food-upload">
+		<form
+			hx-post="/food_entries/upload"
+			hx-swap="outerHTML"
+			hx-target="#food-table"
+			hx-encoding="multipart/form-data"
+		>
+			<input name="food-entries-file" type="file" accept="text/csv" class="file-input file-input-bordered file-input-info w-full max-w-xs"/>
+			<button data-cy="upload-food-submit" type="submit" class="btn btn-primary">
+				Upload
+			</button>
+		</form>
+	</div>
+}
+
+templ FoodSearch() {
+	<div id="food-search">
+		<form
+			hx-get="/food_entries/table"
+			hx-swap="outerHTML"
+			hx-target="#food-table"
+		>
+			<input type="text" name="name" placeholder="Food Name" class="input input-bordered w-full"/>
+		</form>
+	</div>
+}
+
+templ FoodTable(foods []*model.Food) {
+	<div id="food-table" class="overflow-x-auto h-96 w-full">
+		<table class="table table-zebra table-xs table-pin-rows">
+			<!-- head -->
+			<thead>
+				<tr>
+					<th>ID</th>
+					<th>Name</th>
+					<th>RetentionCategory</th>
+					<th>GeneralCategory</th>
+					<th>IndexCategory</th>
+					<th>Kilocalories</th>
+					<th>Kilojoules</th>
+					<th>Water</th>
+					<th>Protein</th>
+					<th>Fat</th>
+					<th>Carbohydrates</th>
+					<th>DietaryFiber</th>
+					<th>Minerals</th>
+					<th>OrganicAcids</th>
+					<th>Alcohol</th>
+					<th>RetinolActivityEquivalent</th>
+					<th>RetinolEquivalent</th>
+					<th>Retinol</th>
+					<th>BetaCaroteneEquivalent</th>
+					<th>BetaCarotene</th>
+					<th>Calciferols</th>
+					<th>AlphaTocopherolEquivalent</th>
+					<th>AlphaTocopherol</th>
+					<th>Phylloquinone</th>
+					<th>Thiamine</th>
+					<th>Riboflavin</th>
+					<th>Niacin</th>
+					<th>NiacinEquivalent</th>
+					<th>PantothenicAcid</th>
+					<th>Pyridoxine</th>
+					<th>Biotin</th>
+					<th>FolicAcid</th>
+					<th>Cobalamin</th>
+					<th>AscorbicAcid</th>
+					<th>Sodium</th>
+					<th>Potassium</th>
+					<th>Calcium</th>
+					<th>Magnesium</th>
+					<th>Phosphorus</th>
+					<th>Sulfur</th>
+					<th>Chloride</th>
+					<th>Iron</th>
+					<th>Zinc</th>
+					<th>Copper</th>
+					<th>Manganese</th>
+					<th>Fluoride</th>
+					<th>Iodide</th>
+					<th>Selenium</th>
+					<th>Mannitol</th>
+					<th>Sorbitol</th>
+					<th>Xylitol</th>
+					<th>SugarAlcohols</th>
+					<th>Glucose</th>
+					<th>Fructose</th>
+					<th>Galactose</th>
+					<th>Monosaccharides</th>
+					<th>Sucrose</th>
+					<th>Maltose</th>
+					<th>Lactose</th>
+					<th>Disaccharides</th>
+					<th>TotalSugar</th>
+					<th>ResorbableOligosaccharides</th>
+					<th>NonResorbableOligosaccharides</th>
+					<th>Glycogen</th>
+					<th>Starch</th>
+					<th>Polysaccharides</th>
+					<th>Polypentoses</th>
+					<th>Polyhexoses</th>
+					<th>PolyuronicAcid</th>
+					<th>Cellulose</th>
+					<th>Lignin</th>
+					<th>WaterSolubleDietaryFiber</th>
+					<th>WaterInsolubleDietaryFiber</th>
+					<th>Isoleucine</th>
+					<th>Leucine</th>
+					<th>Lysine</th>
+					<th>Methionine</th>
+					<th>Cysteine</th>
+					<th>Phenylalanine</th>
+					<th>Tyrosine</th>
+					<th>Threonine</th>
+					<th>Tryptophan</th>
+					<th>Valine</th>
+					<th>Arginine</th>
+					<th>Histidine</th>
+					<th>EssentialAminoAcids</th>
+					<th>Alanine</th>
+					<th>AsparticAcid</th>
+					<th>GlutamicAcid</th>
+					<th>Glycine</th>
+					<th>Proline</th>
+					<th>Serine</th>
+					<th>NonEssentialAminoAcids</th>
+					<th>UricAcid</th>
+					<th>Purine</th>
+					<th>ButyricAcid</th>
+					<th>HexanoicAcid</th>
+					<th>OctanoicAcid</th>
+					<th>DecanoicAcid</th>
+					<th>DodecanoicAcid</th>
+					<th>TetradecanoicAcid</th>
+					<th>PentadecanoicAcid</th>
+					<th>HexadecanoicAcid</th>
+					<th>HeptadecanoicAcid</th>
+					<th>OctadecanoicAcid</th>
+					<th>EicosanoicAcid</th>
+					<th>DecosanoicAcid</th>
+					<th>TetracosanoicAcid</th>
+					<th>SaturatedFattyAcids</th>
+					<th>TetradecenoicAcid</th>
+					<th>PentadecenoicAcid</th>
+					<th>HexadecenoicAcid</th>
+					<th>HeptadecenoicAcid</th>
+					<th>OctadecenoicAcid</th>
+					<th>EicosenoicAcid</th>
+					<th>DecosenoicAcid</th>
+					<th>TetracosenoicAcid</th>
+					<th>MonounsaturatedFattyAcids</th>
+					<th>HexadecadienoicAcid</th>
+					<th>HexadecatetraenoicAcid</th>
+					<th>OctadecadienoicAcid</th>
+					<th>OctadecatrienoicAcid</th>
+					<th>OctadecatetraenoicAcid</th>
+					<th>NonadecatrienoicAcid</th>
+					<th>EicosadienoicAcid</th>
+					<th>EicosatrienoicAcid</th>
+					<th>EicosatetraenoicAcid</th>
+					<th>EicosapentaenoicAcid</th>
+					<th>DocosadienoicAcid</th>
+					<th>DocosatrienoicAcid</th>
+					<th>DocosatetraenoicAcid</th>
+					<th>DocosapentaenoicAcid</th>
+					<th>DocosahexaenoicAcid</th>
+					<th>PolyunsaturatedFattyAcids</th>
+					<th>ShortChainFattyAcids</th>
+					<th>MediumChainFattyAcids</th>
+					<th>LongChainFattyAcids</th>
+					<th>Omega3FattyAcids</th>
+					<th>Omega6FattyAcids</th>
+					<th>GlycerolAndLipids</th>
+					<th>Cholesterol</th>
+					<th>Salt</th>
+				</tr>
+			</thead>
+			<tbody data-cy="food-table">
+				for _, food:= range foods {
+					<tr data-cy="food-row">
+						<td>
+							{ fmt.Sprint(food.ID) }
+						</td>
+						<td>
+							{ food.Name }
+						</td>
+						<td>
+							{ food.RetentionCategory }
+						</td>
+						<td>
+							{ food.GeneralCategory }
+						</td>
+						<td>
+							{ food.IndexCategory }
+						</td>
+						<td>
+							{ fmt.Sprint(food.Kilocalories) }
+						</td>
+						<td>
+							{ fmt.Sprint(food.Kilojoules) }
+						</td>
+						<td>
+							{ fmt.Sprint(food.Water) }
+						</td>
+						<td>
+							{ fmt.Sprint(food.Protein) }
+						</td>
+						<td>
+							{ fmt.Sprint(food.Fat) }
+						</td>
+						<td>
+							{ fmt.Sprint(food.Carbohydrates) }
+						</td>
+						<td>
+							{ fmt.Sprint(food.DietaryFiber) }
+						</td>
+						<td>
+							{ fmt.Sprint(food.Minerals) }
+						</td>
+						<td>
+							{ fmt.Sprint(food.OrganicAcids) }
+						</td>
+						<td>
+							{ fmt.Sprint(food.Alcohol) }
+						</td>
+						<td>
+							{ fmt.Sprint(food.RetinolActivityEquivalent) }
+						</td>
+						<td>
+							{ fmt.Sprint(food.RetinolEquivalent) }
+						</td>
+						<td>
+							{ fmt.Sprint(food.Retinol) }
+						</td>
+						<td>
+							{ fmt.Sprint(food.BetaCaroteneEquivalent) }
+						</td>
+						<td>
+							{ fmt.Sprint(food.BetaCarotene) }
+						</td>
+						<td>
+							{ fmt.Sprint(food.Calciferols) }
+						</td>
+						<td>
+							{ fmt.Sprint(food.AlphaTocopherolEquivalent) }
+						</td>
+						<td>
+							{ fmt.Sprint(food.AlphaTocopherol) }
+						</td>
+						<td>
+							{ fmt.Sprint(food.Phylloquinone) }
+						</td>
+						<td>
+							{ fmt.Sprint(food.Thiamine) }
+						</td>
+						<td>
+							{ fmt.Sprint(food.Riboflavin) }
+						</td>
+						<td>
+							{ fmt.Sprint(food.Niacin) }
+						</td>
+						<td>
+							{ fmt.Sprint(food.NiacinEquivalent) }
+						</td>
+						<td>
+							{ fmt.Sprint(food.PantothenicAcid) }
+						</td>
+						<td>
+							{ fmt.Sprint(food.Pyridoxine) }
+						</td>
+						<td>
+							{ fmt.Sprint(food.Biotin) }
+						</td>
+						<td>
+							{ fmt.Sprint(food.FolicAcid) }
+						</td>
+						<td>
+							{ fmt.Sprint(food.Cobalamin) }
+						</td>
+						<td>
+							{ fmt.Sprint(food.AscorbicAcid) }
+						</td>
+						<td>
+							{ fmt.Sprint(food.Sodium) }
+						</td>
+						<td>
+							{ fmt.Sprint(food.Potassium) }
+						</td>
+						<td>
+							{ fmt.Sprint(food.Calcium) }
+						</td>
+						<td>
+							{ fmt.Sprint(food.Magnesium) }
+						</td>
+						<td>
+							{ fmt.Sprint(food.Phosphorus) }
+						</td>
+						<td>
+							{ fmt.Sprint(food.Sulfur) }
+						</td>
+						<td>
+							{ fmt.Sprint(food.Chloride) }
+						</td>
+						<td>
+							{ fmt.Sprint(food.Iron) }
+						</td>
+						<td>
+							{ fmt.Sprint(food.Zinc) }
+						</td>
+						<td>
+							{ fmt.Sprint(food.Copper) }
+						</td>
+						<td>
+							{ fmt.Sprint(food.Manganese) }
+						</td>
+						<td>
+							{ fmt.Sprint(food.Fluoride) }
+						</td>
+						<td>
+							{ fmt.Sprint(food.Iodide) }
+						</td>
+						<td>
+							{ fmt.Sprint(food.Selenium) }
+						</td>
+						<td>
+							{ fmt.Sprint(food.Mannitol) }
+						</td>
+						<td>
+							{ fmt.Sprint(food.Sorbitol) }
+						</td>
+						<td>
+							{ fmt.Sprint(food.Xylitol) }
+						</td>
+						<td>
+							{ fmt.Sprint(food.SugarAlcohols) }
+						</td>
+						<td>
+							{ fmt.Sprint(food.Glucose) }
+						</td>
+						<td>
+							{ fmt.Sprint(food.Fructose) }
+						</td>
+						<td>
+							{ fmt.Sprint(food.Galactose) }
+						</td>
+						<td>
+							{ fmt.Sprint(food.Monosaccharides) }
+						</td>
+						<td>
+							{ fmt.Sprint(food.Sucrose) }
+						</td>
+						<td>
+							{ fmt.Sprint(food.Maltose) }
+						</td>
+						<td>
+							{ fmt.Sprint(food.Lactose) }
+						</td>
+						<td>
+							{ fmt.Sprint(food.Disaccharides) }
+						</td>
+						<td>
+							{ fmt.Sprint(food.TotalSugar) }
+						</td>
+						<td>
+							{ fmt.Sprint(food.ResorbableOligosaccharides) }
+						</td>
+						<td>
+							{ fmt.Sprint(food.NonResorbableOligosaccharides) }
+						</td>
+						<td>
+							{ fmt.Sprint(food.Glycogen) }
+						</td>
+						<td>
+							{ fmt.Sprint(food.Starch) }
+						</td>
+						<td>
+							{ fmt.Sprint(food.Polysaccharides) }
+						</td>
+						<td>
+							{ fmt.Sprint(food.Polypentoses) }
+						</td>
+						<td>
+							{ fmt.Sprint(food.Polyhexoses) }
+						</td>
+						<td>
+							{ fmt.Sprint(food.PolyuronicAcid) }
+						</td>
+						<td>
+							{ fmt.Sprint(food.Cellulose) }
+						</td>
+						<td>
+							{ fmt.Sprint(food.Lignin) }
+						</td>
+						<td>
+							{ fmt.Sprint(food.WaterSolubleDietaryFiber) }
+						</td>
+						<td>
+							{ fmt.Sprint(food.WaterInsolubleDietaryFiber) }
+						</td>
+						<td>
+							{ fmt.Sprint(food.Isoleucine) }
+						</td>
+						<td>
+							{ fmt.Sprint(food.Leucine) }
+						</td>
+						<td>
+							{ fmt.Sprint(food.Lysine) }
+						</td>
+						<td>
+							{ fmt.Sprint(food.Methionine) }
+						</td>
+						<td>
+							{ fmt.Sprint(food.Cysteine) }
+						</td>
+						<td>
+							{ fmt.Sprint(food.Phenylalanine) }
+						</td>
+						<td>
+							{ fmt.Sprint(food.Tyrosine) }
+						</td>
+						<td>
+							{ fmt.Sprint(food.Threonine) }
+						</td>
+						<td>
+							{ fmt.Sprint(food.Tryptophan) }
+						</td>
+						<td>
+							{ fmt.Sprint(food.Valine) }
+						</td>
+						<td>
+							{ fmt.Sprint(food.Arginine) }
+						</td>
+						<td>
+							{ fmt.Sprint(food.Histidine) }
+						</td>
+						<td>
+							{ fmt.Sprint(food.EssentialAminoAcids) }
+						</td>
+						<td>
+							{ fmt.Sprint(food.Alanine) }
+						</td>
+						<td>
+							{ fmt.Sprint(food.AsparticAcid) }
+						</td>
+						<td>
+							{ fmt.Sprint(food.GlutamicAcid) }
+						</td>
+						<td>
+							{ fmt.Sprint(food.Glycine) }
+						</td>
+						<td>
+							{ fmt.Sprint(food.Proline) }
+						</td>
+						<td>
+							{ fmt.Sprint(food.Serine) }
+						</td>
+						<td>
+							{ fmt.Sprint(food.NonEssentialAminoAcids) }
+						</td>
+						<td>
+							{ fmt.Sprint(food.UricAcid) }
+						</td>
+						<td>
+							{ fmt.Sprint(food.Purine) }
+						</td>
+						<td>
+							{ fmt.Sprint(food.ButyricAcid) }
+						</td>
+						<td>
+							{ fmt.Sprint(food.HexanoicAcid) }
+						</td>
+						<td>
+							{ fmt.Sprint(food.OctanoicAcid) }
+						</td>
+						<td>
+							{ fmt.Sprint(food.DecanoicAcid) }
+						</td>
+						<td>
+							{ fmt.Sprint(food.DodecanoicAcid) }
+						</td>
+						<td>
+							{ fmt.Sprint(food.TetradecanoicAcid) }
+						</td>
+						<td>
+							{ fmt.Sprint(food.PentadecanoicAcid) }
+						</td>
+						<td>
+							{ fmt.Sprint(food.HexadecanoicAcid) }
+						</td>
+						<td>
+							{ fmt.Sprint(food.HeptadecanoicAcid) }
+						</td>
+						<td>
+							{ fmt.Sprint(food.OctadecanoicAcid) }
+						</td>
+						<td>
+							{ fmt.Sprint(food.EicosanoicAcid) }
+						</td>
+						<td>
+							{ fmt.Sprint(food.DecosanoicAcid) }
+						</td>
+						<td>
+							{ fmt.Sprint(food.TetracosanoicAcid) }
+						</td>
+						<td>
+							{ fmt.Sprint(food.SaturatedFattyAcids) }
+						</td>
+						<td>
+							{ fmt.Sprint(food.TetradecenoicAcid) }
+						</td>
+						<td>
+							{ fmt.Sprint(food.PentadecenoicAcid) }
+						</td>
+						<td>
+							{ fmt.Sprint(food.HexadecenoicAcid) }
+						</td>
+						<td>
+							{ fmt.Sprint(food.HeptadecenoicAcid) }
+						</td>
+						<td>
+							{ fmt.Sprint(food.OctadecenoicAcid) }
+						</td>
+						<td>
+							{ fmt.Sprint(food.EicosenoicAcid) }
+						</td>
+						<td>
+							{ fmt.Sprint(food.DecosenoicAcid) }
+						</td>
+						<td>
+							{ fmt.Sprint(food.TetracosenoicAcid) }
+						</td>
+						<td>
+							{ fmt.Sprint(food.MonounsaturatedFattyAcids) }
+						</td>
+						<td>
+							{ fmt.Sprint(food.HexadecadienoicAcid) }
+						</td>
+						<td>
+							{ fmt.Sprint(food.HexadecatetraenoicAcid) }
+						</td>
+						<td>
+							{ fmt.Sprint(food.OctadecadienoicAcid) }
+						</td>
+						<td>
+							{ fmt.Sprint(food.OctadecatrienoicAcid) }
+						</td>
+						<td>
+							{ fmt.Sprint(food.OctadecatetraenoicAcid) }
+						</td>
+						<td>
+							{ fmt.Sprint(food.NonadecatrienoicAcid) }
+						</td>
+						<td>
+							{ fmt.Sprint(food.EicosadienoicAcid) }
+						</td>
+						<td>
+							{ fmt.Sprint(food.EicosatrienoicAcid) }
+						</td>
+						<td>
+							{ fmt.Sprint(food.EicosatetraenoicAcid) }
+						</td>
+						<td>
+							{ fmt.Sprint(food.EicosapentaenoicAcid) }
+						</td>
+						<td>
+							{ fmt.Sprint(food.DocosadienoicAcid) }
+						</td>
+						<td>
+							{ fmt.Sprint(food.DocosatrienoicAcid) }
+						</td>
+						<td>
+							{ fmt.Sprint(food.DocosatetraenoicAcid) }
+						</td>
+						<td>
+							{ fmt.Sprint(food.DocosapentaenoicAcid) }
+						</td>
+						<td>
+							{ fmt.Sprint(food.DocosahexaenoicAcid) }
+						</td>
+						<td>
+							{ fmt.Sprint(food.PolyunsaturatedFattyAcids) }
+						</td>
+						<td>
+							{ fmt.Sprint(food.ShortChainFattyAcids) }
+						</td>
+						<td>
+							{ fmt.Sprint(food.MediumChainFattyAcids) }
+						</td>
+						<td>
+							{ fmt.Sprint(food.LongChainFattyAcids) }
+						</td>
+						<td>
+							{ fmt.Sprint(food.Omega3FattyAcids) }
+						</td>
+						<td>
+							{ fmt.Sprint(food.Omega6FattyAcids) }
+						</td>
+						<td>
+							{ fmt.Sprint(food.GlycerolAndLipids) }
+						</td>
+						<td>
+							{ fmt.Sprint(food.Cholesterol) }
+						</td>
+						<td>
+							{ fmt.Sprint(food.Salt) }
+						</td>
+					</tr>
+				}
+			</tbody>
+		</table>
+	</div>
+}
+
+// TODO
+templ Index(au *model.User, theme string, foods []*model.Food) {
+	@layout.DashboardLayout(au, theme) {
+		@FoodUpload()
+		@FoodSearch()
+		@FoodTable(foods)
+	}
+}

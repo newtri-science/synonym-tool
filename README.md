@@ -1,4 +1,4 @@
-# Synonym tool
+# Cycling Coach Lab
 
 This is a Go project that uses the [Echo](https://echo.labstack.com) framework for building web applications and the [Templ](https://templ.guide) package for rendering HTML templates.
 
@@ -24,26 +24,30 @@ export PATH=$GOPATH/bin:$PATH
 ```sh
 go install github.com/cosmtrek/air@latest
 go install github.com/a-h/templ/cmd/templ@latest
+go install go.uber.org/mock/mockgen@latest
 make init
 ```
 
 3. Setup you `.env` file. See [.env.template](.env.template)
 
-## Running the Project
+## Local Development
 
-You can run the project in two ways:
+To run the server and watch for file changes simultaneously, follow these steps:
 
-### Using Go
-
-- This command will start the server on port 3000.
+1. Open two separate terminal tabs.
+2. In the first tab, start the server on port 3000 with the following command:
 
 ```sh
 make start
 ```
 
-- This command will start the server with hot reload on port 3000.
+3. In the second tab, generate the styles.css file by watching for file changes:
 
-### Using Docker
+```sh
+make tailwind
+```
+
+## Run App using Docker
 
 1. First, build the Docker image:
 
@@ -65,6 +69,24 @@ To run the unit tests:
 
 ```sh
 make test
+```
+
+To get test coverage:
+
+```sh
+make test-coverage
+```
+
+To generate mocks:
+
+```sh
+make generate-dev
+```
+
+To update snapshots:
+
+```sh
+make update-snapshots
 ```
 
 ## K8s development
