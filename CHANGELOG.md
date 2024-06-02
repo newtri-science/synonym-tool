@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.1](https://github.com/newtri-science/synonym-tool/compare/v1.1.0...v1.1.1) (2024-06-02)
+
+
+### Bug Fixes
+
+* **api:** change url to synonym ([1c286ed](https://github.com/newtri-science/synonym-tool/commit/1c286ed3e0138ad0d40516cb933acf511970a606))
+
 ## [1.1.0](https://github.com/newtri-science/synonym-tool/compare/v1.0.0...v1.1.0) (2024-05-28)
 
 
