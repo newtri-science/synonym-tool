@@ -53,7 +53,7 @@ jobs:
           version: ${{ steps.release.outputs.major }}.${{ steps.release.outputs.minor }}.${{ steps.release.outputs.patch }}
           token: ${{ secrets.GH_PAT }}
           tlsName: synonym-tool-tls
-          subDomain: ccl
+          subDomain: synonym
           persistence: true
       - name: Wait for review app deployment
         if: ${{ steps.release.outputs.release_created }}
