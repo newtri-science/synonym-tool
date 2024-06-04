@@ -9,6 +9,7 @@ import (
 	"github.com/newtri-science/synonym-tool/model"
 	"github.com/newtri-science/synonym-tool/scripts"
 	"github.com/newtri-science/synonym-tool/services"
+	"github.com/newtri-science/synonym-tool/utils"
 	"github.com/newtri-science/synonym-tool/views/pages"
 )
 
@@ -29,9 +30,20 @@ func (h FoodManagementHandler) RenderFoodManagementPage(c echo.Context) error {
 	foodEntries, err := h.s.GetAllFoodEntries()
 
 	if err != nil {
-		fmt.Println("error when looking for all foodEntries:" + err.Error())
+		utils.Warning("Could not retrieve food entries")
 	}
-	return Render(c, pages.Index(au, GetTheme(c), foodEntries))
+	
+	return Render(c, pages.FoodManagementPage(au, GetTheme(c), foodEntries))
+}
+
+func (h FoodManagementHandler) RenderFoodManagementView(c echo.Context) error {
+	au := c.(model.AuthenticatedContext).User
+	foodEntries, err := h.s.GetAllFoodEntries()
+	
+	if err != nil {
+		return utils.Warning("Could not retrieve food entries")
+	}
+	return Render(c, pages.FoodManagementView(au, foodEntries))
 }
 
 func (h FoodManagementHandler) ListFoodEntries(c echo.Context) error {
@@ -80,4 +92,4 @@ func (h FoodManagementHandler) UploadFoodEntries(c echo.Context) error {
 	return Render(c, pages.FoodTable(allFoodEntries))
 }
 
-// TODO: Add, Delete and Update FoodEntry
+// TODO: Add DELETE Entry

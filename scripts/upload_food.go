@@ -215,9 +215,6 @@ func GenerateFoodEntries(file *multipart.FileHeader) ([]model.Food, error) {
         }
     }
 
-    // TODO? ad own, unique id to each entry
-    fmt.Println("TODO? add unique id to each entry")
-
     // Transform entries to []Model.Food
     fmt.Println("transform entries to []Model.Food")
     var foods []model.Food
@@ -642,10 +639,7 @@ func GenerateFoodEntries(file *multipart.FileHeader) ([]model.Food, error) {
         food.Salt = float32(salt)
 
         foods = append(foods, food)
-        break // TODO
     }
-	
-    fmt.Println(foods)
 
 	return foods, nil
 }

@@ -42,6 +42,7 @@ templ FoodTable(foods []*model.Food) {
 				<tr>
 					<th>ID</th>
 					<th>Name</th>
+					<th>UpdatedAt</th>
 					<th>RetentionCategory</th>
 					<th>GeneralCategory</th>
 					<th>IndexCategory</th>
@@ -192,6 +193,9 @@ templ FoodTable(foods []*model.Food) {
 						</td>
 						<td>
 							{ food.Name }
+						</td>
+						<td>
+							{ food.UpdatedAt.Format("2006-01-02 15:04:05") }
 						</td>
 						<td>
 							{ food.RetentionCategory }
@@ -620,11 +624,16 @@ templ FoodTable(foods []*model.Food) {
 	</div>
 }
 
-// TODO
-templ Index(au *model.User, theme string, foods []*model.Food) {
-	@layout.DashboardLayout(au, theme) {
+templ FoodManagementView(au *model.User, foods []*model.Food) {
+	<div>
 		@FoodUpload()
 		@FoodSearch()
 		@FoodTable(foods)
+	</div>
+}
+
+templ FoodManagementPage(au *model.User, theme string, foods []*model.Food) {
+	@layout.DashboardLayout(au, theme) {
+		@FoodManagementView(au, foods)
 	}
 }
