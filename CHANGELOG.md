@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.0](https://github.com/newtri-science/synonym-tool/compare/v1.1.1...v1.2.0) (2024-06-04)
+
+
+### Features
+
+* **API:** overwrite old food entry if same name ([#8](https://github.com/newtri-science/synonym-tool/issues/8)) ([ffa5d90](https://github.com/newtri-science/synonym-tool/commit/ffa5d90f0635813e56c2181561657a58decacc9d))
+
 ## [1.1.1](https://github.com/newtri-science/synonym-tool/compare/v1.1.0...v1.1.1) (2024-06-02)
 
 
