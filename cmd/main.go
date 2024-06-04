@@ -125,6 +125,7 @@ func Setup(app *echo.Echo, db *sql.DB, migrator db.Migrator, logger *zap.Sugared
 	foodRoute.Use(middlewares.Authentication(sessionService, browserSessionManager))
 	foodRoute.Use(middlewares.Autheratziation(enforcer))
 	foodRoute.GET("", foodHandler.RenderFoodManagementPage)
+	foodRoute.GET("/view", foodHandler.RenderFoodManagementView)
 	foodRoute.GET("/table", foodHandler.ListFoodEntries)
 	foodRoute.POST("/upload", foodHandler.UploadFoodEntries)
 
