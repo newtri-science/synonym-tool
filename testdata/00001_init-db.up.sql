@@ -68,7 +68,7 @@ CREATE TABLE IF NOT EXISTS globalSettings
 ------------------------------------------------------------
 --                     Food Table                         --
 ------------------------------------------------------------
-CREATE TABLE foods (
+CREATE TABLE IF NOT EXISTS foods (
     id SERIAL PRIMARY KEY,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
@@ -223,6 +223,23 @@ VALUES
   (CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Clementine', 'whole_fruit', 'whole_fruit', 'whole_fruit', 46.0, 192.0, 86102.0, 699.0, 299.0, 9000.0, 2000.0, 700.0, 1200.0, 0.0, 0.0, 50.0, 0.0, 0.0, 300.0, 0.0, 300.0, 300.0, 3.0, 70.0, 20.0, 200.0, 350.0, 200.0, 50.0, 0.5, 15.0, 0.0, 30000.0, 2.0, 180.0, 35.0, 11.0, 20.0, 10.0, 3.0, 300.0, 100.0, 90.0, 40.0, 10.0, 0.8, 0.0, 0.0, 0.0, 0.0, 0.0, 1530.0, 1692.0, 0.0, 3222.0, 5778.0, 0.0, 0.0, 5778.0, 9000.0, 0.0, 0.0, 0.0, 0.0, 0.0, 400.0, 300.0, 600.0, 400.0, 300.0, 788.0, 1212.0, 22.0, 22.0, 41.0, 13.0, 9.0, 28.0, 13.0, 13.0, 9.0, 32.0, 59.0, 13.0, 274.0, 46.0, 129.0, 92.0, 74.0, 50.0, 32.0, 423.0, 20.0, 7.0, 0.0, 0.0, 0.0, 0.0, 0.0, 2.0, 0.0, 57.0, 0.0, 2.0, 0.0, 0.0, 0.0, 61.0, 0.0, 0.0, 7.0, 0.0, 48.0, 0.0, 0.0, 0.0, 55.0, 0.0, 0.0, 87.0, 36.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 123.0, 0.0, 0.0, 239.0, 36.0, 87.0, 60.0, 0.0, 5.0),
   (CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Erdbeere', 'whole_fruit', 'whole_fruit', 'whole_fruit', 35.5, 148.5, 90035.0, 710.0, 450.0, 5755.0, 2900.0, 500.0, 1000.0, 0.0, 0.0, 2.0, 0.0, 3.0, 9.5, 0.0, 210.0, 120.0, 5.0, 25.5, 37.0, 440.0, 784.75, 210.0, 50.0, 4.0, 42.35, 0.0, 56400.0, 1.0, 152.0, 18.5, 12.5, 24.0, 13.0, 35.5, 421.0, 99.0, 46.0, 400.0, 16.0, 1.9, 0.5, 0.0, 32.0, 28.0, 60.0, 2181.0, 2250.75, 0.0, 4431.75, 1008.0, 0.0, 0.0, 1008.0, 5519.875, 0.0, 0.0, 0.0, 0.0, 0.0, 456.0, 304.0, 810.0, 330.0, 100.0, 580.0, 1050.0, 20.5, 47.75, 37.0, 1.0, 7.75, 27.25, 31.25, 28.25, 16.5, 27.25, 40.0, 17.5, 302.0, 47.75, 208.25, 137.25, 37.0, 29.25, 36.0, 495.5, 21.0, 7.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 26.25, 0.0, 5.0, 0.0, 0.0, 0.0, 31.0, 0.0, 0.0, 1.0, 0.0, 60.5, 0.0, 0.0, 0.0, 61.5, 0.0, 0.0, 130.0, 102.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 232.0, 0.0, 0.0, 324.5, 102.0, 130.0, 78.5, 0.0, 1.5);
 
+CREATE TABLE IF NOT EXISTS synonyms (
+  id SERIAL PRIMARY KEY,
+  name VARCHAR(100) NOT NULL UNIQUE,
+  food_name VARCHAR(100) NOT NULL REFERENCES foods(name) ON DELETE CASCADE
+  status synonym_status NOT NULL DEFAULT 'IS',
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+INSERT INTO synonyms (name, food_name, status, created_at, updated_at)
+VALUES
+  ('Kratzbeere', 'Brombeere', 'IS', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+  ('Schwarze Himbeere', 'Brombeere', 'IS', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+  ('Rubus fruticosus', 'Brombeere', 'IS', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+  ('Klementine', 'Clementine', 'IS', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+
+  
   -- Create triggers to enforce lowercase on insert and update
 CREATE OR REPLACE FUNCTION lowercase_setting_name()
 RETURNS TRIGGER AS $$

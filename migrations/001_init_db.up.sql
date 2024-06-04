@@ -19,6 +19,15 @@ BEGIN
 END
 $$;
 
+-- CREATE TYPE synonym_status AS ENUM ('oneOK', 'twoOK', 'oneNO', 'twoNO', 'IS', 'unclear');
+DO $$
+BEGIN
+    IF NOT EXISTS (SELECT 1 FROM pg_type WHERE typname = 'synonym_status') THEN
+        CREATE TYPE synonym_status AS ENUM ('oneOK', 'twoOK', 'oneNO', 'twoNO', 'IS', 'unclear');
+    END IF;
+END
+$$;
+
 ------------------------------------------------------------
 --                   Users Table                          --
 ------------------------------------------------------------
@@ -48,7 +57,7 @@ VALUES
 CREATE TABLE IF NOT EXISTS sessions (
   id UUID PRIMARY KEY,
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-  user_id INT REFERENCES users(id) ON DELETE CASCADE 
+  user_id INT REFERENCES users(id) ON DELETE CASCADE
 );
 
 
@@ -217,7 +226,6 @@ CREATE TABLE IF NOT EXISTS foods (
 
 INSERT INTO foods (created_at, updated_at, name, general_category, retention_category, index_category, kilocalories, kilojoules, water, protein, fat, carbohydrates, dietary_fiber, minerals, organic_acids, alcohol, retinol_activity_equivalent, retinol_equivalent, retinol, beta_carotene_equivalent, beta_carotene, calciferols, alpha_tocopherol_equivalent, alpha_tocopherol, phylloquinone, thiamine, riboflavin, niacin, niacin_equivalent, pantothenic_acid, pyridoxine, biotin, folic_acid, cobalamin, ascorbic_acid, sodium, potassium, calcium, magnesium, phosphorus, sulfur, chloride, iron, zinc, copper, manganese, fluoride, iodide, selenium, mannitol, sorbitol, xylitol, sugar_alcohols, glucose, fructose, galactose, monosaccharides, sucrose, maltose, lactose, disaccharides, total_sugar, resorbable_oligosaccharides, non_resorbable_oligosaccharides, glycogen, starch, polysaccharides, polypentoses, polyhexoses, polyuronic_acid, cellulose, lignin, water_soluble_dietary_fiber, water_insoluble_dietary_fiber, isoleucine, leucine, lysine, methionine, cysteine, phenylalanine, tyrosine, threonine, tryptophan, valine, arginine, histidine, essential_amino_acids, alanine, aspartic_acid, glutamic_acid, glycine, proline, serine, non_essential_amino_acids, uric_acid, purine, butyric_acid, hexanoic_acid, octanoic_acid, decanoic_acid, dodecanoic_acid, tetradecanoic_acid, pentadecanoic_acid, hexadecanoic_acid, heptadecanoic_acid, octadecanoic_acid, eicosanoic_acid, decosanoic_acid, tetracosanoic_acid, saturated_fatty_acids, tetradecenoic_acid, pentadecenoic_acid, hexadecenoic_acid, heptadecenoic_acid, octadecenoic_acid, eicosenoic_acid, decosenoic_acid, tetracosenoic_acid, monounsaturated_fatty_acids, hexadecadienoic_acid, hexadecatetraenoic_acid, octadecadienoic_acid, octadecatrienoic_acid, octadecatetraenoic_acid, nonadecatrienoic_acid, eicosadienoic_acid, eicosatrienoic_acid, eicosatetraenoic_acid, eicosapentaenoic_acid, docosadienoic_acid, docosatrienoic_acid, docosatetraenoic_acid, docosapentaenoic_acid, docosahexaenoic_acid, polyunsaturated_fatty_acids, short_chain_fatty_acids, medium_chain_fatty_acids, long_chain_fatty_acids, omega_3_fatty_acids, omega_6_fatty_acids, glycerol_and_lipids, cholesterol, salt)
 VALUES
-  (CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Boysenbeere', 'whole_fruit', 'whole_fruit', 'whole_fruit', 37.0, 157.0, 83650.0, 500.0, 300.0, 6950.0, 6200.0, 900.0, 1500.0, 0.0, 0.0, 17.0, 0.0, 0.0, 100.0, 0.0, 400.0, 400.0, 0.0, 20.0, 130.0, 1000.0, 1100.0, 240.0, 60.0, 1.0, 12.0, 0.0, 13000.0, 3.0, 150.0, 25.0, 18.0, 24.0, 16.0, 14.0, 1600.0, 300.0, 140.0, 500.0, 24.0, 0.7, 0.0, 0.0, 0.0, 0.0, 0.0, 2480.0, 3700.0, 0.0, 6180.0, 770.0, 0.0, 0.0, 770.0, 6950.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1916.0, 1159.0, 738.0, 1122.0, 1265.0, 1593.0, 4607.0, 13.0, 29.0, 16.0, 10.0, 6.0, 19.0, 13.0, 19.0, 6.0, 23.0, 35.0, 16.0, 205.0, 29.0, 92.0, 101.0, 25.0, 23.0, 25.0, 295.0, 15.0, 5.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 13.0, 0.0, 5.0, 0.0, 0.0, 0.0, 18.0, 0.0, 0.0, 1.0, 0.0, 36.0, 0.0, 0.0, 0.0, 37.0, 0.0, 0.0, 108.0, 77.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 185.0, 0.0, 0.0, 240.0, 77.0, 108.0, 60.0, 0.0, 8.0),
   (CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Brombeere', 'whole_fruit', 'whole_fruit', 'whole_fruit', 41.5, 180.625, 86125.0, 1150.0, 850.0, 6370.0, 4200.0, 510.0, 1700.0, 0.0, 9.0, 32.0, 0.0, 113.0, 184.0, 0.0, 940.0, 600.0, 0.0, 20.0, 35.0, 435.0, 650.0, 230.0, 35.0, 0.4, 25.05, 0.0, 13850.0, 1.5, 195.0, 37.5, 25.0, 27.5, 12.0, 20.0, 650.0, 195.0, 100.0, 970.0, 24.0, 0.4, 0.0, 0.0, 3214.25, 0.0, 3214.25, 1999.5, 2102.75, 0.0, 4102.25, 114.5, 0.0, 0.0, 114.5, 5158.375, 0.0, 0.0, 0.0, 0.0, 0.0, 1088.0, 787.0, 486.0, 582.0, 256.0, 960.0, 2200.0, 31.0, 69.0, 38.0, 23.0, 15.0, 46.0, 31.0, 46.0, 15.0, 53.0, 84.0, 38.0, 489.0, 69.0, 222.0, 245.0, 61.0, 54.0, 61.0, 712.0, 15.0, 5.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 44.0, 0.0, 16.0, 0.0, 0.0, 0.0, 80.0, 0.0, 0.0, 4.0, 0.0, 120.0, 0.0, 0.0, 0.0, 162.0, 0.0, 0.0, 360.0, 256.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 508.0, 0.0, 0.0, 800.0, 256.0, 360.0, 200.0, 0.0, 2.5),
   (CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Clementine', 'whole_fruit', 'whole_fruit', 'whole_fruit', 46.0, 192.0, 86102.0, 699.0, 299.0, 9000.0, 2000.0, 700.0, 1200.0, 0.0, 0.0, 50.0, 0.0, 0.0, 300.0, 0.0, 300.0, 300.0, 3.0, 70.0, 20.0, 200.0, 350.0, 200.0, 50.0, 0.5, 15.0, 0.0, 30000.0, 2.0, 180.0, 35.0, 11.0, 20.0, 10.0, 3.0, 300.0, 100.0, 90.0, 40.0, 10.0, 0.8, 0.0, 0.0, 0.0, 0.0, 0.0, 1530.0, 1692.0, 0.0, 3222.0, 5778.0, 0.0, 0.0, 5778.0, 9000.0, 0.0, 0.0, 0.0, 0.0, 0.0, 400.0, 300.0, 600.0, 400.0, 300.0, 788.0, 1212.0, 22.0, 22.0, 41.0, 13.0, 9.0, 28.0, 13.0, 13.0, 9.0, 32.0, 59.0, 13.0, 274.0, 46.0, 129.0, 92.0, 74.0, 50.0, 32.0, 423.0, 20.0, 7.0, 0.0, 0.0, 0.0, 0.0, 0.0, 2.0, 0.0, 57.0, 0.0, 2.0, 0.0, 0.0, 0.0, 61.0, 0.0, 0.0, 7.0, 0.0, 48.0, 0.0, 0.0, 0.0, 55.0, 0.0, 0.0, 87.0, 36.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 123.0, 0.0, 0.0, 239.0, 36.0, 87.0, 60.0, 0.0, 5.0),
   (CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Erdbeere', 'whole_fruit', 'whole_fruit', 'whole_fruit', 35.5, 148.5, 90035.0, 710.0, 450.0, 5755.0, 2900.0, 500.0, 1000.0, 0.0, 0.0, 2.0, 0.0, 3.0, 9.5, 0.0, 210.0, 120.0, 5.0, 25.5, 37.0, 440.0, 784.75, 210.0, 50.0, 4.0, 42.35, 0.0, 56400.0, 1.0, 152.0, 18.5, 12.5, 24.0, 13.0, 35.5, 421.0, 99.0, 46.0, 400.0, 16.0, 1.9, 0.5, 0.0, 32.0, 28.0, 60.0, 2181.0, 2250.75, 0.0, 4431.75, 1008.0, 0.0, 0.0, 1008.0, 5519.875, 0.0, 0.0, 0.0, 0.0, 0.0, 456.0, 304.0, 810.0, 330.0, 100.0, 580.0, 1050.0, 20.5, 47.75, 37.0, 1.0, 7.75, 27.25, 31.25, 28.25, 16.5, 27.25, 40.0, 17.5, 302.0, 47.75, 208.25, 137.25, 37.0, 29.25, 36.0, 495.5, 21.0, 7.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 26.25, 0.0, 5.0, 0.0, 0.0, 0.0, 31.0, 0.0, 0.0, 1.0, 0.0, 60.5, 0.0, 0.0, 0.0, 61.5, 0.0, 0.0, 130.0, 102.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 232.0, 0.0, 0.0, 324.5, 102.0, 130.0, 78.5, 0.0, 1.5),
@@ -288,7 +296,36 @@ VALUES
   (CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Weichkäse aus Ziegenmilch mind. 40% Fett i. Tr.', 'dairy', 'dairy', 'dairy', 251.0, 1050.0, 56410.0, 15000.0, 19000.0, 5000.0, 0.0, 4090.0, 500.0, 0.0, 0.0, 228.0, 210.0, 0.0, 110.0, 0.38, 570.0, 570.0, 0.0, 30.0, 380.0, 200.0, 3467.0, 1000.0, 70.0, 4.0, 18.0, 2.0, 0.0, 1100.0, 200.0, 500.0, 30.0, 700.0, 250.0, 800.0, 900.0, 3000.0, 120.0, 50.0, 140.0, 35.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 5000.0, 5000.0, 5000.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 814.0, 1432.0, 1131.0, 347.0, 75.0, 693.0, 693.0, 618.0, 196.0, 904.0, 497.0, 437.0, 7837.0, 407.0, 935.0, 3151.0, 241.0, 1643.0, 784.0, 7161.0, 22.0, 7.0, 646.0, 413.0, 233.0, 485.0, 593.0, 1921.0, 215.0, 4956.0, 162.0, 1813.0, 90.0, 0.0, 0.0, 11527.0, 251.0, 126.0, 467.0, 180.0, 4668.0, 36.0, 0.0, 0.0, 5728.0, 0.0, 0.0, 449.0, 251.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 700.0, 1059.0, 718.0, 16178.0, 251.0, 449.0, 1045.0, 44.0, 1318.0),
   (CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Weichkäse aus Ziegenmilch mind. 45% Fett i. Tr.', 'dairy', 'dairy', 'dairy', 275.0, 1152.0, 53613.0, 20102.0, 21799.0, 1.0, 0.0, 4185.0, 300.0, 0.0, 0.0, 297.0, 280.0, 0.0, 100.0, 0.7, 400.0, 400.0, 0.0, 45.0, 460.0, 1200.0, 5567.0, 310.0, 200.0, 5.0, 50.0, 2.0, 1.0, 1000.0, 150.0, 400.0, 20.0, 400.0, 210.0, 1200.0, 300.0, 3000.0, 70.0, 30.0, 100.0, 20.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 1.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1172.0, 1920.0, 1434.0, 464.0, 102.0, 930.0, 930.0, 828.0, 262.0, 1272.0, 666.0, 526.0, 10506.0, 546.0, 1252.0, 4222.0, 324.0, 2202.0, 1050.0, 9596.0, 10.0, 3.0, 742.0, 474.0, 268.0, 556.0, 680.0, 2204.0, 247.0, 5686.0, 185.0, 2081.0, 103.0, 0.0, 0.0, 13226.0, 288.0, 144.0, 536.0, 206.0, 5356.0, 41.0, 0.0, 0.0, 6571.0, 0.0, 0.0, 515.0, 288.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 803.0, 1216.0, 824.0, 18560.0, 288.0, 515.0, 1199.0, 54.0, 1977.0),
   (CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Weichkäse aus Ziegenmilch mind. 50% Fett i. Tr.', 'dairy', 'dairy', 'dairy', 400.0, 1674.0, 36700.0, 21880.0, 33630.0, 2330.0, 0.0, 4060.0, 1400.0, 0.0, 0.0, 342.0, 342.0, 0.0, 0.0, 0.0, 629.0, 629.0, 0.0, 0.0, 230.0, 270.0, 4753.0, 0.0, 80.0, 0.0, 41.0, 0.0, 0.0, 654.0, 73.0, 732.0, 42.0, 481.0, 180.0, 1250.0, 230.0, 3050.0, 0.0, 0.0, 0.0, 24.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 2330.0, 0.0, 2330.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 977.0, 2062.0, 1694.0, 502.0, 117.0, 1174.0, 941.0, 932.0, 269.0, 1533.0, 601.0, 619.0, 11421.0, 538.0, 1336.0, 4652.0, 359.0, 2483.0, 1094.0, 10462.0, 0.0, 0.0, 1040.0, 944.0, 962.0, 3127.0, 1898.0, 2759.0, 304.0, 10428.0, 155.0, 2927.0, 59.0, 14.0, 3.0, 24620.0, 81.0, 0.0, 318.0, 85.0, 7440.0, 22.0, 3.0, 3.0, 7952.0, 0.0, 0.0, 814.0, 136.0, 0.0, 0.0, 8.0, 11.0, 44.0, 14.0, 0.0, 0.0, 0.0, 26.0, 3.0, 1056.0, 1984.0, 4089.0, 27555.0, 179.0, 877.0, 1.0, 119.0, 1663.0);
-  
+
+------------------------------------------------------------
+--                Synonyms Table                          --
+------------------------------------------------------------
+CREATE TABLE IF NOT EXISTS synonyms (
+  id SERIAL PRIMARY KEY,
+  name VARCHAR(100) NOT NULL UNIQUE,
+  food_name VARCHAR(100) NOT NULL REFERENCES foods(name) ON DELETE CASCADE,
+  status synonym_status NOT NULL DEFAULT 'IS',
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+INSERT INTO synonyms (name, food_name, status, created_at, updated_at)
+VALUES
+  ('Kratzbeere', 'Brombeere', 'IS', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+  ('Schwarze Himbeere', 'Brombeere', 'IS', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+  ('Rubus fruticosus', 'Brombeere', 'IS', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+  ('Klementine', 'Clementine', 'IS', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+  ('Citrus clementina', 'Clementine', 'IS', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+  ('Clementinen-Mandarine', 'Clementine', 'IS', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+  ('Clementinenorange', 'Clementine', 'IS', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+  ('Weihnachtsorange', 'Clementine', 'IS', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+  ('Garten-Erdbeere', 'Erdbeere', 'IS', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+  ('Fragaria', 'Erdbeere', 'IS', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+  ('Fragaria x ananassa', 'Erdbeere', 'IS', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+  ('Ananaserdbeere', 'Erdbeere', 'IS', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+  ('Kultur-Erdbeere', 'Erdbeere', 'IS', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+
+
 
 -- Create triggers to enforce lowercase on insert and update
 CREATE OR REPLACE FUNCTION lowercase_setting_name()
